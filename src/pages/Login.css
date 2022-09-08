@@ -1,0 +1,46 @@
+.login {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--twitter-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_wrapper {
+    width: 400px;
+    height: 300px;
+    background-color: var(--twitter-white);
+    border: 1px solid var(--twitter-background);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+.login_wrapper .login_button {
+    background-color: var(--twitter-color) !important;
+    color: var(--twitter-white) !important;
+    border-radius: 30px !important;
+    padding: .5rem 2rem !important;
+    text-transform: inherit !important;
+    font-size: 18px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+}
+
+.login_button:hover {
+    background-color: var(--twitter-btn-hover) !important;
+}
+
+.login_twitter_icon {
+    font-size: 50px !important;
+    color: var(--twitter-color);
+}

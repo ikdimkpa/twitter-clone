@@ -1,0 +1,123 @@
+.widgets {
+    flex: .3;
+    background-color: rebeccapurple;
+    height: fit-content;
+    display: flex;
+    width: calc(100vw - 78%);
+}
+
+.widgets_container {
+    position: fixed;
+    width: inherit;
+}
+
+.widgets_header {
+    /* position: sticky;
+    top: 0;
+    z-index: 100; */
+    background-color: var(--twitter-white);
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.widgets_input {
+    display: flex;
+    align-items: center;
+    background-color: var(--twitter-background);
+    border-radius: 20px;
+    margin-left: 20px;
+    border: 1px solid transparent;
+}
+
+.widgets_input:focus-within {
+    border: 1px solid var(--twitter-color);
+    background-color: var(--twitter-white);
+}
+
+.widgets_input:focus-within .widgets_searchIcon {
+    color: var(--twitter-color);
+}
+
+.widgets_searchIcon {
+    margin-left: 10px;
+    margin-right: 10px;
+    color: gray;
+}
+
+.widgets_input input {
+    font-size: 16px;
+    line-height: 20px;
+    padding: 10px 0;
+    width: 100%;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--twitter-background);
+}
+
+.widgets_input input:focus {
+    outline: none;
+    background-color: var(--twitter-white);
+}
+
+.widgets_wrapper {
+    margin-left: 20px;
+    overflow-y: scroll;
+    height: 100vh;
+    /* IE and Edge */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
+}
+
+/* Chrome */
+.widgets_wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.widgets_wrapper>div h2 {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.widgets_wrapper>div:not(.widgets_footer) {
+    background-color: #f5f8fa;
+    border-radius: 20px;
+    margin-top: 15px;
+    padding-top: 10px;
+}
+
+.trends_show-more {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 0 0 20px 20px;
+    color: var(--twitter-color);
+    transition: background-color 200ms ease-out;
+}
+
+.trends_show-more:hover {
+    background-color: var(--twitter-background);
+}
+
+.widgets_footer {
+    color: gray;
+    margin-top: 15px;
+    padding-bottom: 68px;
+}
+
+.widgets_footer small {
+    font-size: 14px;
+}
+
+.widgets_footer small:first-child {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 15px;
+}
+
+.widgets_footer a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

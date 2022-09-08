@@ -1,0 +1,107 @@
+.explore {
+    flex: .5;
+    border-left: 1px solid var(--twitter-background);
+    border-right: 1px solid var(--twitter-background);
+    background-color: var(--twitter-white);
+    height: fit-content;
+}
+
+.explore_header {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background-color: rgba(255, 255, 255, .65);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--twitter-background);
+    z-index: 100;
+    padding-right: 16px;
+    height: 53px;
+    display: flex;
+    align-items: center;
+}
+
+.explore_input {
+    display: flex;
+    align-items: center;
+    background-color: var(--twitter-background);
+    border-radius: 20px;
+    margin-left: 20px;
+    border: 1px solid transparent;
+    width: 100%;
+}
+
+.explore_input:focus-within {
+    border: 1px solid var(--twitter-color);
+    background-color: var(--twitter-white);
+}
+
+.explore_input:focus-within .widgets_searchIcon {
+    color: var(--twitter-color);
+}
+
+.explore_searchIcon {
+    margin-left: 10px;
+    margin-right: 10px;
+    color: gray;
+}
+
+.explore_input input {
+    font-size: 16px;
+    line-height: 20px;
+    padding: 10px 0;
+    width: 100%;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--twitter-background);
+}
+
+.explore_input input:focus {
+    outline: none;
+    background-color: var(--twitter-white);
+}
+
+.explore_trends {
+    border-top: 1px solid var(--twitter-background);
+    padding-top: 10px;
+}
+
+.explore_wrapper .trends:hover {
+    background-color: #f5f8fa;
+}
+
+.explore_wrapper figure {
+    position: relative;
+}
+
+.explore_wrapper figure::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to bottom, rgb(255 255 255 / 10%) 25%, rgb(0 0 0 / 80%) 100%);
+}
+
+.explore_wrapper figure::before {
+    content: 'The 15th Headies, Lorem ipsum dolor sit amet consectetur adipisicing elit.';
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 22px;
+    text-shadow: 0 1px 1px rgb(0 0 0 / 12%);
+    font-weight: 700;
+    z-index: 1;
+    color: #fff;
+}
+
+.explore_wrapper .trends_show-more {
+    border-radius: 0;
+}
+
+.explore_trends h2 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
