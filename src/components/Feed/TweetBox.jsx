@@ -8,26 +8,45 @@ import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import useStorage from '../../hooks/useStorage'
 import { db } from '../../firebase'
 
-const TweetBox = ({ user, text }) => {
+const TweetBox = ({
+  user,
+  text,
+  postId,
+  placeholder }) => {
   const [tweetText, setTweetText] = React.useState('')
   const [tweetImage, setTweetImage] = React.useState('')
-
   const { progress, url, setUrl } = useStorage(tweetImage)
 
-  const sendTweet = (e) => {
+  const sendTweet = (e, text) => {
     e.preventDefault();
 
-    const collectionRef = collection(db, "posts");
+    if (text === "Tweet") {
+      const collectionRef = collection(db, "posts");
 
-    addDoc(collectionRef, {
-      displayName: user.displayName,
-      username: user.username,
-      verified: true,
-      text: tweetText,
-      image: url,
-      avatar: user.photoURL,
-      createdAt: Timestamp.now()
-    });
+      addDoc(collectionRef, {
+        displayName: user.displayName,
+        username: user.username,
+        verified: true,
+        text: tweetText,
+        image: url,
+        avatar: user.photoURL,
+        createdAt: Timestamp.now()
+      });
+    }
+
+    if (text === "Reply") {
+      const collectionRef = collection(db, "comments");
+
+      addDoc(collectionRef, {
+        postId,
+        displayName: user.displayName,
+        username: user.username,
+        verified: true,
+        text: tweetText,
+        avatar: user.photoURL,
+        createdAt: Timestamp.now()
+      });
+    }
 
     setTweetText('');
     setUrl('');
@@ -62,52 +81,83 @@ const TweetBox = ({ user, text }) => {
   }
 
   return (
-    <div className="tweet_box">
-      <div className="post_avatar">
-        <Avatar src={user && user.photoURL} alt={user && user.displayName} />
-      </div>
-
-      <form className="tweet_box-wrapper" onSubmit={sendTweet}>
-        <input
-          type="text"
-          value={tweetText}
-          onChange={(e) => setTweetText(e.target.value)}
-          placeholder="What's happpening?"
-          required />
-
+    <>
+      <div className="tweet_box">
         {
-          tweetImage && <figure className='temp_image'>
-            <img src={url} alt={tweetImage.name} />
-          </figure>
+          text == "Tweet" && <>
+            <div className="post_avatar">
+              <Avatar src={user && user.photoURL} alt={user && user.displayName} />
+            </div>
+
+            <form className="tweet_box-wrapper" onSubmit={(e) => sendTweet(e, text)}>
+              <input
+                type="text"
+                value={tweetText}
+                onChange={(e) => setTweetText(e.target.value)}
+                placeholder={placeholder}
+                required />
+
+              {
+                tweetImage && <figure className='temp_image'>
+                  <img src={url} alt={tweetImage.name} />
+                </figure>
+              }
+
+              <div className="tweet_box-footer">
+                <div className="tweet_box-icons">
+                  <label htmlFor="tweet-image" title='Media'>
+                    <PhotoOutlined />
+                    <input type="file" id="tweet-image" onChange={uploadImage} />
+                  </label>
+
+                  <label htmlFor="tweet-gif" title='GIF'>
+                    <GifBoxOutlined />
+                    <input type="file" id="tweet-gif" onChange={uploadGif} />
+                  </label>
+
+                  <PollOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
+                  <EmojiEmotionsOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
+                  <CalendarTodayOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
+                  <LocationOnOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
+                </div>
+
+                <Button
+                  className='tweet_box-button'
+                  type="submit"
+                >
+                  {text}
+                </Button>
+              </div>
+            </form>
+          </>
         }
 
-        <div className="tweet_box-footer">
-          <div className="tweet_box-icons">
-            <label htmlFor="tweet-image" title='Media'>
-              <PhotoOutlined />
-              <input type="file" id="tweet-image" onChange={uploadImage} />
-            </label>
+        {
+          text == "Reply" && <>
+            <div className="post_avatar">
+              <Avatar src={user && user.photoURL} alt={user && user.displayName} />
+            </div>
 
-            <label htmlFor="tweet-gif" title='GIF'>
-              <GifBoxOutlined />
-              <input type="file" id="tweet-gif" onChange={uploadGif} />
-            </label>
+            <form className="tweet_box-wrapper comment_input" onSubmit={(e) => sendTweet(e, text)}>
+              <input
+                type="text"
+                value={tweetText}
+                onChange={(e) => setTweetText(e.target.value)}
+                placeholder={placeholder}
+                required />
 
-            <PollOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
-            <EmojiEmotionsOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
-            <CalendarTodayOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
-            <LocationOnOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
-          </div>
-          <Button
-            className='tweet_box-button'
-            type="submit"
-          >
-            {text}
-          </Button>
-        </div>
-      </form>
+              <Button
+                className='tweet_box-button'
+                type="submit"
+              >
+                {text}
+              </Button>
+            </form>
+          </>
+        }
+      </div>
 
-    </div>
+    </>
   )
 }
 

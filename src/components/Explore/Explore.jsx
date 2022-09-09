@@ -61,7 +61,7 @@ const Explore = () => {
                 </div>
 
                 <div className='explore_trends'>
-                    <h2>Random Posts</h2>
+                    <h2>Random Tweets</h2>
                     {
                         posts ? posts.map(post => (
                             <Post

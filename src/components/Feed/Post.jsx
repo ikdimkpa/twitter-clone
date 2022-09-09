@@ -1,11 +1,11 @@
 import React, { forwardRef } from 'react'
 import './Post.css'
 import TweetBox from './TweetBox';
-import FlipMove from 'react-flip-move';
 import { Avatar } from '@mui/material'
 import { ChatBubbleOutline, DeleteForever, FavoriteBorder, MoreHoriz, Publish, Repeat, VerifiedUser } from '@mui/icons-material';
-import { collection, deleteDoc, doc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, query, orderBy, onSnapshot, where } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { Link } from 'react-router-dom';
 
 const Post = forwardRef(({
   displayName,
@@ -15,13 +15,29 @@ const Post = forwardRef(({
   image,
   avatar,
   id,
-  currentUser }, ref) => {
+  currentUser,
+  setTweetUsername }, ref) => {
   const [isDelete, setIsDelete] = React.useState(false);
   const [showReply, setShowReply] = React.useState(false);
+
+  const [comments, setComments] = React.useState(null);
+
+  const collectionRef = query(collection(db, "comments"), where("postId", "==", id));
+
+  React.useEffect(() => {
+    onSnapshot(collectionRef, snapshot => {
+      setComments(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+    })
+  }, []);
 
   const deletePost = (postId) => {
     if (window.confirm("Are you sure?\nYou want to DELETE this post")) {
       deleteDoc(doc(db, "posts", postId))
+      if (comments) {
+        comments.map(comment => {
+          deleteDoc(db, "comments", comment.id)
+        });
+      }
     }
   }
 
@@ -56,20 +72,30 @@ const Post = forwardRef(({
             }
 
           </div>
+        </div>
+
+        <Link to={`${username}/${id}`} className="post_detail_link" onClick={() => setTweetUsername(username)}>
           <div className="post_header-description">
             <p>{text}</p>
           </div>
-        </div>
-        <img src={image} alt="" />
+          {!image.includes("undefined") && <img src={image} alt="" />}
+        </Link>
 
         {
-          showReply && <FlipMove>
-            <TweetBox user={currentUser} text="Reply" />
-          </FlipMove>
+          showReply && <TweetBox
+            user={currentUser}
+            postId={id}
+            text="Reply"
+            placeholder="Tweet your reply" />
         }
 
         <div className="post_footer">
-          <ChatBubbleOutline className='ChatBubble' title="Reply" fontSize='small' onClick={() => setShowReply(!showReply)} />
+          <div className='post_footer_icon_wrapper' onClick={() => setShowReply(!showReply)}>
+            <ChatBubbleOutline className='ChatBubble' title="Reply" fontSize='small' />
+            {
+              comments && comments.length > 0 && <span>{comments.length}</span>
+            }
+          </div>
           <Repeat className='repeat' title="Retweet" fontSize="small" />
           <FavoriteBorder className='favorit' title="Like" fontSize="small" />
           <Publish className='publish' title="Share" fontSize="small" />

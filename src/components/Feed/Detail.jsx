@@ -1,0 +1,122 @@
+import React from 'react'
+import { collection, query, onSnapshot, where, deleteDoc, doc, getDoc } from 'firebase/firestore';
+import { db } from '../../firebase';
+import { Link, useParams } from 'react-router-dom'
+import { ArrowBack, ChatBubbleOutline, DeleteForever, FavoriteBorder, MoreHoriz, Publish, Repeat, VerifiedUser } from '@mui/icons-material';
+import './Detail.css'
+import TweetBox from './TweetBox';
+import Comments from './Comments';
+import { Avatar } from '@mui/material';
+
+const Detail = ({ tweetUsername, user }) => {
+    const { id } = useParams();
+    const [post, setPost] = React.useState(null);
+    const [comments, setComments] = React.useState(null);
+    const [isDelete, setIsDelete] = React.useState(false);
+
+    React.useEffect(() => {
+        const fetchPost = async () => {
+            const docSnap = await getDoc(doc(db, "posts", id));
+            setPost(docSnap.data())
+        }
+
+        fetchPost();
+    }, []);
+
+    const deletePost = (postId) => {
+        if (window.confirm("Are you sure?\nYou want to DELETE this post")) {
+            deleteDoc(doc(db, "posts", postId))
+        }
+    }
+
+    const collectionRef = query(collection(db, "comments"), where("postId", "==", id));
+
+    React.useEffect(() => {
+        onSnapshot(collectionRef, snapshot => {
+            setComments(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+        })
+    }, []);
+
+    return (
+        <div className="detail">
+            <Link to="/" className="detail_header">
+                <ArrowBack />
+                <h2>Tweet</h2>
+            </Link>
+
+            {
+                post ? <div className="post">
+                    <div className="post_avatar">
+                        <Avatar src={post.avatar} />
+                    </div>
+
+                    <div className="post_body">
+                        <div className="post_header">
+                            <div className="post_header-text">
+                                <h3>
+                                    {post.displayName}
+                                    <span className="post_header-special">
+                                        {post.verified && <VerifiedUser className="post_badge" />} @
+                                        {post.username}
+                                    </span>
+                                </h3>
+
+                                {
+                                    isDelete && <DeleteForever onClick={() => deletePost(id)} title="Delete Forever" className="post_more-options" />
+                                }
+
+                            </div>
+                        </div>
+
+                        <div className="post_header-description">
+                            <p>{post.text}</p>
+                        </div>
+                        {!post.image.includes("undefined") && <img src={post.image} alt="" />}
+
+                        <div className="post_footer">
+                            <div className='post_footer_icon_wrapper'>
+                                <ChatBubbleOutline className='ChatBubble' title="Reply" fontSize='small' />
+                                {
+                                    comments && comments.length > 0 && <span>{comments.length}</span>
+                                }
+                            </div>
+                            <Repeat className='repeat' title="Retweet" fontSize="small" />
+                            <FavoriteBorder className='favorit' title="Like" fontSize="small" />
+                            <Publish className='publish' title="Share" fontSize="small" />
+                        </div>
+                    </div>
+                </div> : <div className='loading_wrapper'>
+                    <div className="loading"></div>
+                </div>
+            }
+
+            {
+                post && <TweetBox
+                    user={user}
+                    postId={id}
+                    text="Reply"
+                    placeholder="Tweet your reply" />
+            }
+
+            {
+                post && comments ? comments.map(({ text, avatar, displayName, username, verified, id }) => (
+                    <Comments
+                        key={text}
+                        avatar={avatar}
+                        displayName={displayName}
+                        text={text}
+                        username={username}
+                        verified={verified}
+                        id={id}
+                        currentUser={user}
+                    />
+                )) : <div className='loading_wrapper'>
+                    <div className="loading"></div>
+                </div>
+            }
+
+        </div >
+    )
+}
+
+export default Detail

@@ -1,3 +1,53 @@
+.detail {
+    flex: .5;
+    border-left: 1px solid var(--twitter-background);
+    border-right: 1px solid var(--twitter-background);
+    background-color: var(--twitter-white);
+    height: fit-content;
+    min-height: 100vh;
+}
+
+.detail_header {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background-color: rgba(255, 255, 255, .65);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--twitter-background);
+    z-index: 100;
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 53px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    cursor: pointer;
+    color: #000;
+    text-decoration: none;
+}
+
+.detail_header>.MuiSvgIcon-root {
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 5px;
+    width: 36px;
+    height: 36px;
+    transition: all 100ms ease-out;
+}
+
+.detail_header>.MuiSvgIcon-root:hover {
+    background-color: var(--twitter-background);
+}
+
+.detail_header>h2 {
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 5px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
 .post {
     display: flex;
     align-items: flex-start;
@@ -20,9 +70,9 @@
     text-decoration: none;
 }
 
-.post_header-description {
-    margin-bottom: 10px;
-    font-size: 15px;
+.detail .post_header-description {
+    font-size: 23px;
+    line-height: 28px;
 }
 
 .post_header-text {

@@ -4,9 +4,9 @@ import FlipMove from 'react-flip-move'
 import TweetBox from './TweetBox'
 import Post from './Post'
 import { db } from '../../firebase'
-import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
 
-const Feed = () => {
+const Feed = ({ setTweetUsername, setCurrentUser }) => {
   const [posts, setPosts] = useState(null);
   const [user, setUser] = useState({});
 
@@ -32,13 +32,18 @@ const Feed = () => {
     })
   }, []);
 
+  setCurrentUser(user)
+
   return (
     <div className="feed">
       <div className="feed_header">
         <h2>Home</h2>
       </div>
 
-      <TweetBox user={user} text="Tweet" />
+      <TweetBox
+        user={user}
+        text="Tweet"
+        placeholder="What's happpening?" />
 
       <div className="more_tweets">
         <span>Show 405 Tweets</span>
@@ -57,6 +62,7 @@ const Feed = () => {
               verified={post.verified}
               id={post.id}
               currentUser={user}
+              setTweetUsername={setTweetUsername}
             />
           )) : <div className='loading_wrapper'>
             <div className="loading"></div>

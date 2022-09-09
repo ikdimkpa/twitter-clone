@@ -91,3 +91,14 @@
 .tweet_box-button:hover {
     background-color: var(--twitter-btn-hover) !important;
 }
+
+.comment_input {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.comment_input .tweet_box-button{
+    height: 36px;
+    width: 90px;
+}
