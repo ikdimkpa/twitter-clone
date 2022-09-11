@@ -15,7 +15,18 @@ const TweetBox = ({
   placeholder }) => {
   const [tweetText, setTweetText] = React.useState('')
   const [tweetImage, setTweetImage] = React.useState('')
+
   const { progress, url, setUrl } = useStorage(tweetImage)
+
+  const handleTweetText = (e) => {
+    if (e.target.value.length <= 280) {
+      setTweetText(e.target.value);
+
+      let numberOfLineBreaks = (tweetText.match(/\n/g) || []).length;
+      let newHeight = 25 + numberOfLineBreaks * 25 + 2;
+      e.target.style.height = `${newHeight}px`;
+    }
+  }
 
   const sendTweet = (e, text) => {
     e.preventDefault();
@@ -90,12 +101,21 @@ const TweetBox = ({
             </div>
 
             <form className="tweet_box-wrapper" onSubmit={(e) => sendTweet(e, text)}>
-              <input
+              {/* <input
                 type="text"
+                className="input"
                 value={tweetText}
-                onChange={(e) => setTweetText(e.target.value)}
+                onChange={(e) => (e.target.value.length <= 280) ? setTweetText(e.target.value) : null}
                 placeholder={placeholder}
-                required />
+                required /> */}
+
+              <textarea
+                className='input'
+                value={tweetText}
+                onChange={handleTweetText}
+                placeholder={placeholder}
+                required >
+              </textarea>
 
               {
                 tweetImage && <figure className='temp_image'>
@@ -104,6 +124,7 @@ const TweetBox = ({
               }
 
               <div className="tweet_box-footer">
+                
                 <div className="tweet_box-icons">
                   <label htmlFor="tweet-image" title='Media'>
                     <PhotoOutlined />
@@ -119,6 +140,19 @@ const TweetBox = ({
                   <EmojiEmotionsOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
                   <CalendarTodayOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
                   <LocationOnOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
+                </div>
+
+                <div>
+                  {
+                    tweetText && <div style={{ display: "flex", alignItems: "center", gap: "5px", marginLeft: "100px" }}>
+                      <div style={{ width: "50px", background: "var(--twitter-background)", height: "5px", borderRadius: "5px" }}>
+                        <div style={{ width: `${(tweetText.length / 280) * 100}%`, background: `${tweetText.length >= 260 ? "orange" : "var(--twitter-color)"}`, height: "5px", borderRadius: "5px" }}></div>
+                      </div>
+                      {
+                        tweetText.length >= 260 && <div>{280 - tweetText.length}</div>
+                      }
+                    </div>
+                  }
                 </div>
 
                 <Button
@@ -141,6 +175,8 @@ const TweetBox = ({
             <form className="tweet_box-wrapper comment_input" onSubmit={(e) => sendTweet(e, text)}>
               <input
                 type="text"
+                className='input'
+                id='input'
                 value={tweetText}
                 onChange={(e) => setTweetText(e.target.value)}
                 placeholder={placeholder}

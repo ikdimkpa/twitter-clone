@@ -1,6 +1,5 @@
 .widgets {
     flex: .3;
-    background-color: rebeccapurple;
     height: fit-content;
     display: flex;
     width: calc(100vw - 78%);
@@ -120,4 +119,16 @@
 .widgets_footer a:hover {
     cursor: pointer;
     text-decoration: underline;
+}
+
+@media only screen and (max-width: 1400px) {
+    .widgets {
+        width: 28vw;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .widgets {
+        display: none;
+    }
 }

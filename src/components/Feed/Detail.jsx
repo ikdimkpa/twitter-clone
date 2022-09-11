@@ -7,6 +7,7 @@ import './Detail.css'
 import TweetBox from './TweetBox';
 import Comments from './Comments';
 import { Avatar } from '@mui/material';
+import Loader from '../Loader/Loader';
 
 const Detail = ({ tweetUsername, user }) => {
     const { id } = useParams();
@@ -85,9 +86,7 @@ const Detail = ({ tweetUsername, user }) => {
                             <Publish className='publish' title="Share" fontSize="small" />
                         </div>
                     </div>
-                </div> : <div className='loading_wrapper'>
-                    <div className="loading"></div>
-                </div>
+                </div> : <Loader />
             }
 
             {
@@ -101,7 +100,7 @@ const Detail = ({ tweetUsername, user }) => {
             {
                 post && comments ? comments.map(({ text, avatar, displayName, username, verified, id }) => (
                     <Comments
-                        key={text}
+                        key={id}
                         avatar={avatar}
                         displayName={displayName}
                         text={text}
@@ -110,9 +109,7 @@ const Detail = ({ tweetUsername, user }) => {
                         id={id}
                         currentUser={user}
                     />
-                )) : <div className='loading_wrapper'>
-                    <div className="loading"></div>
-                </div>
+                )) : <Loader />
             }
 
         </div >

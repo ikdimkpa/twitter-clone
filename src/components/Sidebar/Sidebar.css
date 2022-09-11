@@ -48,3 +48,93 @@
     height: 50px !important;
     margin-top: 20px !important;
 }
+
+@media only screen and (max-width: 1080px) {
+    .sidebar {
+        flex: .11;
+        justify-content: flex-end;
+    }
+
+    .sidebar_wrapper {
+        width: fit-content;
+    }
+
+    .sidebar_tweet {
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .sidebar {
+        flex: .2;
+        min-width: 60px;
+    }
+
+    .sidebar_wrapper {
+        width: none;
+    }
+}
+
+@media only screen and (max-width: 780px) {
+    .sidebar {
+        max-width: 100px;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .sidebar {
+        justify-content: center;
+    }
+
+    .sidebar_wrapper {
+        padding: 0;
+    }
+}
+
+@media only screen and (max-width: 499px) {
+    .sidebar {
+        background-color: var(--twitter-white);
+        z-index: 100;
+        position: fixed;
+        left: 0;
+        min-width: 100vw;
+        bottom: 0;
+        border-top: 1px solid var(--twitter-background);
+    }
+
+    .sidebar_wrapper {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        width: 100%;
+    }
+
+    .sidebar_twitterIcon {
+        display: none;
+    }
+
+    .sidebar_wrapper .sidebar_option-wrapper:nth-child(6),
+    .sidebar_wrapper .sidebar_option-wrapper:nth-child(7),
+    .sidebar_wrapper .sidebar_option-wrapper:nth-child(8),
+    .sidebar_wrapper .sidebar_option-wrapper:nth-child(9) {
+        display: none !important;
+    }
+}
+
+.logoutButton {
+    text-transform: inherit !important;
+    position: absolute !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    translate: calc(-50% - 10px) !important;
+    border-radius: 20px !important;
+    color: var(--twitter-color) !important;
+    font-weight: 500 !important;
+    border: 1px solid var(--twitter-color) !important;
+    width: unset !important;
+    width: calc(100% - 20px) !important;
+}
+
+.logoutButton:hover {
+    background-color: var(--twitter-hover) !important;
+}

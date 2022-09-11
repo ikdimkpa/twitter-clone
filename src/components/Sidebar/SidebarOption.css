@@ -37,3 +37,26 @@
 .sidebarOption_active h2 {
     font-weight: 800;
 }
+
+@media only screen and (max-width: 1080px) {
+    .sidebar_option-wrapper {
+        border-radius: 50%;
+    }
+
+    .sidebar_option>h2 {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 499px) {
+    .sidebar_option-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0;
+    }
+
+    .sidebar_option {
+        border-radius: 50%;
+    }
+}

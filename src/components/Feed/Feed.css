@@ -51,24 +51,28 @@
     cursor: pointer;
 }
 
-.loading_wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 0;
+@media only screen and (max-width: 1080px) {
+    .feed {
+        flex: .58;
+    }
 }
 
-.loading {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 3px solid var(--twitter-hover);
-    border-top-color: var(--twitter-color);
-    animation: spinner 800ms ease-out infinite;
+@media only screen and (max-width: 992px) {
+    .feed {
+        flex: .8;
+        max-width: 600px;
+        min-width: 600px;
+    }
 }
 
-@keyframes spinner {
-    to {
-        rotate: 360deg;
+@media only screen and (max-width: 700px) {
+    .feed {
+        min-width: fit-content;
+    }
+}
+
+@media only screen and (max-width: 499px) {
+    .feed {
+        flex: 1;
     }
 }

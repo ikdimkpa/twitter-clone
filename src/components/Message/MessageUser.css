@@ -1,0 +1,22 @@
+.message_user {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    text-decoration: none;
+    color: #000;
+}
+
+.message_user:hover {
+    background-color: var(--twitter-background);
+    transition: all 200ms ease-out;
+}
+
+.message_user_info>div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

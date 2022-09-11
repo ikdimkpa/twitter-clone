@@ -13,7 +13,22 @@ import { Button } from '@mui/material'
 import SidebarOption from './SidebarOption'
 import './Sidebar.css'
 
+import { signOut } from 'firebase/auth'
+import { auth } from '../../firebase'
+
+import { useNavigate } from 'react-router-dom'
+
 const Sidebar = () => {
+  const navigate = useNavigate()
+
+  const handleLogOut = () => {
+    if (window.confirm("Are you sure?\nYou want Log Out")) {
+      signOut(auth);
+      navigate("/login");
+      sessionStorage.clear();
+    }
+  }
+
   return (
     <div className="sidebar">
       <div className="sidebar_wrapper">
@@ -24,7 +39,7 @@ const Sidebar = () => {
         <SidebarOption path="/" Icon={HomeIcon} text="Home" />
         <SidebarOption path="/explore" Icon={SearchIcon} text="Explore" />
         <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
-        <SidebarOption Icon={MessageIcon} text="Messages" />
+        <SidebarOption path="/messages" Icon={MessageIcon} text="Messages" />
         <SidebarOption Icon={BookmarkBorderIcon} text="Bookmarks" />
         <SidebarOption Icon={ListAltIcon} text="Lists" />
         <SidebarOption Icon={PermIdentityIcon} text="Profile" />
@@ -32,6 +47,10 @@ const Sidebar = () => {
 
         <Button className='sidebar_tweet' fullWidth>
           Tweet
+        </Button>
+
+        <Button className="logoutButton" fullWidth onClick={handleLogOut}>
+          Logout @{sessionStorage.getItem("username")}
         </Button>
       </div>
     </div>

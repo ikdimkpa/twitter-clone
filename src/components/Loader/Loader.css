@@ -1,0 +1,21 @@
+.loading_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.loading {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 3px solid var(--twitter-hover);
+    border-top-color: var(--twitter-color);
+    animation: spinner 800ms ease-out infinite;
+}
+
+@keyframes spinner {
+    to {
+        rotate: 360deg;
+    }
+}

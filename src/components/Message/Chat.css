@@ -1,0 +1,63 @@
+.chat {
+    display: flex;
+    gap: 10px;
+    width: fit-content;
+    margin-bottom: 1rem;
+    float: left;
+    clear: both;
+}
+
+.is_chat_handler_class {
+    float: right;
+    clear: both;
+    flex-direction: row-reverse;
+}
+
+.is_chat_handler_class .chat_text {
+    border-radius: 15px 15px 0 15px;
+    background-color: var(--twitter-color);
+    align-self: flex-end;
+}
+
+.is_chat_handler_class .moment {
+    align-self: flex-end;
+}
+
+.is_chat_handler_class .chat_text p {
+    color: var(--twitter-white);
+}
+
+.chat_avatar_wrapper {
+    align-self: flex-end;
+    padding-bottom: 1rem;
+}
+
+.chat_avatar {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.chat_body {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat_body img {
+    max-width: 100%;
+    border-radius: 15px;
+}
+
+.chat_text {
+    background-color: var(--twitter-background);
+    padding: 10px;
+    border-radius: 15px 15px 15px 0;
+    align-self: flex-start;
+    max-width: 250px;
+}
+
+.chat_text p {
+    padding-bottom: 2px;
+    font-size: 14px;
+    white-space: pre-wrap;
+    overflow: hidden;
+}

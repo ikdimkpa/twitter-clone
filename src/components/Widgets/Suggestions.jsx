@@ -12,7 +12,7 @@ const Suggestions = () => {
                     <small>@username</small>
                 </div>
             </figure>
-            <Button variant className="follow_button">
+            <Button className="follow_button">
                 Follow
             </Button>
         </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Feed.css'
 import FlipMove from 'react-flip-move'
 import TweetBox from './TweetBox'
+import Loader from '../Loader/Loader'
 import Post from './Post'
 import { db } from '../../firebase'
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
@@ -30,9 +31,10 @@ const Feed = ({ setTweetUsername, setCurrentUser }) => {
       displayName: sessionStorage.getItem('displayName'),
       photoURL: sessionStorage.getItem('photoURL')
     })
+
   }, []);
 
-  setCurrentUser(user)
+  if (user) setCurrentUser(user)
 
   return (
     <div className="feed">
@@ -59,14 +61,14 @@ const Feed = ({ setTweetUsername, setCurrentUser }) => {
               image={post.image}
               text={post.text}
               username={post.username}
+              likes={post.likes}
+              liked={post.liked}
               verified={post.verified}
               id={post.id}
               currentUser={user}
               setTweetUsername={setTweetUsername}
             />
-          )) : <div className='loading_wrapper'>
-            <div className="loading"></div>
-          </div>
+          )) : <><Loader /></>
         }
       </FlipMove>
 

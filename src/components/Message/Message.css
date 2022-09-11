@@ -1,0 +1,155 @@
+.message {
+    width: 350px;
+    height: 480px;
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 2px 2px 16px rgba(0 0 0 / 50%);
+    z-index: 100;
+    background-color: var(--twitter-white);
+    transition: all 200ms ease-out;
+}
+
+.message_header {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px 15px 0 0;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    border-bottom: 1px solid var(--twitter-background);
+    text-decoration: none;
+    color: #000;
+}
+
+.message_header>h2 {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.message_header_icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.message_header .MuiSvgIcon-root {
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 5px;
+    width: 32px;
+    height: 32px;
+    transition: all 200ms ease-out;
+}
+
+.message_header .MuiSvgIcon-root:hover {
+    background-color: var(--twitter-background);
+}
+
+.message_request {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+.message_request:hover {
+    background-color: var(--twitter-background);
+    transition: all 200ms ease-out;
+}
+
+.message_request .MuiSvgIcon-root {
+    border: 1px solid var(--twitter-background);
+    border-radius: 50%;
+    padding: 5px;
+    width: 45px;
+    height: 45px;
+}
+
+.message_request>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.message small {
+    color: rgb(128, 128, 128);
+}
+
+.chat_area {
+    background-color: var(--twitter-white);
+    overflow-y: scroll;
+    height: 380px;
+    /* IE and Edge */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
+    padding: 10px;
+}
+
+/* Chrome */
+.chat_area::-webkit-scrollbar {
+    display: none;
+}
+
+.messageOff {
+    bottom: calc(53px - 480px);
+}
+
+.message_large {
+    flex: .5;
+    position: static;
+    height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    border-left: 1px solid var(--twitter-background);
+    border-right: 1px solid var(--twitter-background);
+}
+
+.message_large .message_header {
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    gap: 1rem;
+}
+
+.message_large .ArrowDownwardOutlined {
+    transform: rotate(90deg) !important;
+}
+
+.message_large .chat_area {
+    height: calc(100vh - 100px);
+}
+
+.message_large .chat_box {
+    position: fixed !important;
+    z-index: 100;
+    width: 100%;
+    max-width: 638px !important;
+}
+
+.message_large figure {
+    max-height: 250px !important;
+    /* max-width: min-content; */
+}
+
+.message_large .chat_text {
+    max-width: 450px;
+}
+
+.message_large .chat {
+    margin-bottom: 1.5rem;
+}
+
+.messageOff .chat_box {
+    position: static;
+}
+
+.messageOff .ArrowDownwardOutlined {
+    transform: rotate(180deg);
+}

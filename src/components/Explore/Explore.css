@@ -73,6 +73,10 @@
     position: relative;
 }
 
+.explore_wrapper figure img{
+    max-width: 100%;
+}
+
 .explore_wrapper figure::after {
     content: '';
     position: absolute;
@@ -104,4 +108,11 @@
     font-weight: 800;
     margin-bottom: 10px;
     padding-left: 10px;
+}
+
+@media only screen and (max-width: 992px) {
+    .explore {
+        flex: .6;
+        /* max-width: 600px; */
+    }
 }

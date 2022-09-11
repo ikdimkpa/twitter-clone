@@ -3,7 +3,7 @@ import './Post.css'
 import TweetBox from './TweetBox';
 import { Avatar } from '@mui/material'
 import { ChatBubbleOutline, DeleteForever, FavoriteBorder, MoreHoriz, Publish, Repeat, VerifiedUser } from '@mui/icons-material';
-import { collection, deleteDoc, doc, query, orderBy, onSnapshot, where } from 'firebase/firestore';
+import { collection, deleteDoc, doc, query, orderBy, onSnapshot, where, addDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { Link } from 'react-router-dom';
 
@@ -14,13 +14,14 @@ const Post = forwardRef(({
   text,
   image,
   avatar,
+  likes,
   id,
   currentUser,
   setTweetUsername }, ref) => {
   const [isDelete, setIsDelete] = React.useState(false);
   const [showReply, setShowReply] = React.useState(false);
-
   const [comments, setComments] = React.useState(null);
+  const [liked, setLiked] = React.useState(false);
 
   const collectionRef = query(collection(db, "comments"), where("postId", "==", id));
 
@@ -35,7 +36,7 @@ const Post = forwardRef(({
       deleteDoc(doc(db, "posts", postId))
       if (comments) {
         comments.map(comment => {
-          deleteDoc(db, "comments", comment.id)
+          deleteDoc(doc(db, "comments", comment.id))
         });
       }
     }
@@ -49,6 +50,35 @@ const Post = forwardRef(({
       setIsDelete(false);
     }
   }, []);
+
+  const handleRetweet = () => {
+    if (window.confirm("Retweet this tweet?")) {
+      alert("Oops! Copy this tweet and retweet, legend 😎");
+    }
+  }
+
+  const handleLikes = (postId) => {
+    setLiked(!liked);
+
+    if (!liked) {
+      updateDoc(doc(db, "posts", postId), {
+        likes: likes + 1
+      });
+
+      updateDoc(doc(db, "posts", postId), {
+        liked
+      })
+    }
+    else {
+      updateDoc(doc(db, "posts", postId), {
+        likes: likes - 1
+      });
+
+      updateDoc(doc(db, "posts", postId), {
+        liked
+      })
+    }
+  }
 
   return (
     <div className="post" ref={ref}>
@@ -91,13 +121,20 @@ const Post = forwardRef(({
 
         <div className="post_footer">
           <div className='post_footer_icon_wrapper' onClick={() => setShowReply(!showReply)}>
-            <ChatBubbleOutline className='ChatBubble' title="Reply" fontSize='small' />
+            <ChatBubbleOutline className={`ChatBubble`} title="Reply" fontSize='small' />
             {
               comments && comments.length > 0 && <span>{comments.length}</span>
             }
           </div>
-          <Repeat className='repeat' title="Retweet" fontSize="small" />
-          <FavoriteBorder className='favorit' title="Like" fontSize="small" />
+          <Repeat className='repeat' title="Retweet" onClick={handleRetweet} fontSize="small" />
+
+          <div className="post_footer_icon_wrapper">
+            <FavoriteBorder className={`favorit ${liked && "active_favorit"}`} title="Like" onClick={() => handleLikes(id)} fontSize="small" />
+            {
+              likes > 0 && <span>{likes}</span>
+            }
+          </div>
+
           <Publish className='publish' title="Share" fontSize="small" />
         </div>
       </div>

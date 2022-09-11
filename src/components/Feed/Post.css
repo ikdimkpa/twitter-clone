@@ -23,6 +23,7 @@
 .post_header-description {
     margin-bottom: 10px;
     font-size: 15px;
+    white-space: pre-wrap;
 }
 
 .post_header-text {
@@ -74,7 +75,7 @@
 
 .post_footer_icon_wrapper {
     display: flex;
-    gap: .5rem;
+    gap: 5px;
     align-items: center;
     cursor: pointer;
 }
@@ -92,7 +93,8 @@
 
 .post_footer .ChatBubble:hover,
 .post_footer .publish:hover,
-.post_footer_icon_wrapper:hover>.ChatBubble {
+.post_footer_icon_wrapper:hover>.ChatBubble,
+.reply_active {
     background-color: rgb(80 183 245 / 20%);
     color: var(--twitter-color);
 }
@@ -102,7 +104,9 @@
     color: rgb(7, 189, 7);
 }
 
-.post_footer>.favorit:hover {
+.post_footer>.favorit:hover,
+.post_footer_icon_wrapper:hover>.favorit,
+.active_favorit {
     background-color: rgb(249 24 128 / 20%);
     color: rgb(249, 24, 128);
 }
