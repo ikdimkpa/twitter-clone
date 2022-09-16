@@ -4,11 +4,15 @@ import './ChatBox.css'
 import useStorage from '../../hooks/useStorage';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { UserContext } from '../../context/UserContext'
 
-const ChatBox = ({ user }) => {
+const ChatBox = () => {
+    const { user } = React.useContext(UserContext);
+
     const [chatText, setChatText] = React.useState("");
     const [chatImage, setChatImage] = React.useState('');
-    const { progress, url, setUrl } = useStorage(chatImage);
+
+    const { url, setUrl } = useStorage(chatImage);
 
     const uploadChatImage = (e) => {
         let selected = e.target.files[0];
@@ -45,7 +49,7 @@ const ChatBox = ({ user }) => {
 
     }
 
-    const hadleSendChat = () => {
+    const handleSendChat = React.useCallback(() => {
         if (chatText !== "" && chatText !== null) {
             if (chatText.trim()) {
                 const collectionRef = collection(db, "chats");
@@ -63,14 +67,14 @@ const ChatBox = ({ user }) => {
                 setChatImage('');
             }
         }
-    }
+    }, [chatText]);
 
     React.useEffect(() => {
         const el = document.getElementById('chat_area');
         if (el) {
             el.scrollTop = el.scrollHeight;
         }
-    }, [hadleSendChat]);
+    }, [handleSendChat]);
 
     return (
         <div className="chat_box">
@@ -101,7 +105,7 @@ const ChatBox = ({ user }) => {
                     required >
                 </textarea>
 
-                <Send onClick={hadleSendChat} />
+                <Send onClick={handleSendChat} />
             </div>
         </div>
     )

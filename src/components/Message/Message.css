@@ -110,6 +110,7 @@
     box-shadow: none;
     border-left: 1px solid var(--twitter-background);
     border-right: 1px solid var(--twitter-background);
+    display: block !important;
 }
 
 .message_large .message_header {
@@ -152,4 +153,45 @@
 
 .messageOff .ArrowDownwardOutlined {
     transform: rotate(180deg);
+}
+
+@media only screen and (max-width: 1080px) {
+    .message {
+        display: none;
+    }
+
+    .message_large {
+        flex: .58;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .message_large {
+        flex: .8;
+        max-width: 600px;
+        min-width: 600px;
+    }
+}
+
+@media only screen and (max-width: 780px) {
+    .message_large {
+        max-width: unset;
+        min-width: unset;
+        flex: .84;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .message_large {
+        flex: 1 !important;
+        width: 100vw !important;
+    }
+}
+
+@media only screen and (max-width: 499px) {
+    .message_large {
+        /* height: 100vh;
+        overflow-y: scroll;
+        padding-bottom: 100px; */
+    }
 }

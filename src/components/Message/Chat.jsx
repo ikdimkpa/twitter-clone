@@ -1,13 +1,16 @@
-import { Avatar } from '@mui/material'
 import React from 'react'
-import './Chat.css'
+import { Avatar } from '@mui/material'
 import moment from 'moment'
+import './Chat.css'
+import { UserContext } from '../../context/UserContext'
 
-const Chat = ({ text, avatar, image, createdAt, username, currentUser }) => {
+const Chat = ({ text, avatar, image, createdAt, username }) => {
+    const { user } = React.useContext(UserContext);
+
     const [isChatHandler, setIsChatHandler] = React.useState(false);
 
     React.useEffect(() => {
-        if (currentUser.username === username) {
+        if (user.username === username) {
             setIsChatHandler(true);
         }
     }, []);

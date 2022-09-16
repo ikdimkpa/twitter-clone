@@ -28,6 +28,12 @@ body {
     padding: 0 10px;
 }
 
+@media only screen and (max-width: 1264px) {
+    .app {
+        padding: 0;
+    }
+}
+
 @media only screen and (max-width: 499px) {
     .app {
         flex-direction: column-reverse;

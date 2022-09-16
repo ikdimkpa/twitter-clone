@@ -49,9 +49,23 @@
     margin-top: 20px !important;
 }
 
-@media only screen and (max-width: 1080px) {
+.logoutBtn {
+    position: absolute;
+    bottom: 20px;
+    display: none;
+    border: 1px solid var(--twitter-color);
+}
+
+.sidebar_tweet_mobile {
+    background-color: var(--twitter-color);
+    color: var(--twitter-white);
+    display: none;
+    border-radius: 50%;
+}
+
+@media only screen and (max-width: 1264px) {
     .sidebar {
-        flex: .11;
+        flex: .15;
         justify-content: flex-end;
     }
 
@@ -62,16 +76,23 @@
     .sidebar_tweet {
         display: none !important;
     }
+
+    .logoutBtn,
+    .sidebar_tweet_mobile {
+        display: block;
+    }
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 1080px) {
+    .sidebar {
+        flex: .1;
+    }
+}
+
+@media only screen and (max-width: 1004px) {
     .sidebar {
         flex: .2;
-        min-width: 60px;
-    }
-
-    .sidebar_wrapper {
-        width: none;
+        min-width: 80px;
     }
 }
 
@@ -83,7 +104,10 @@
 
 @media only screen and (max-width: 700px) {
     .sidebar {
+        flex: .14;
         justify-content: center;
+        /* max-width: 80px; */
+        min-width: auto !important;
     }
 
     .sidebar_wrapper {
@@ -97,7 +121,8 @@
         z-index: 100;
         position: fixed;
         left: 0;
-        min-width: 100vw;
+        max-width: unset;
+        width: 100vw;
         bottom: 0;
         border-top: 1px solid var(--twitter-background);
     }
@@ -105,8 +130,8 @@
     .sidebar_wrapper {
         position: static;
         display: grid;
-        grid-template-columns: repeat(4, auto);
-        width: 100%;
+        grid-template-columns: repeat(5, 1fr);
+        width: inherit;
     }
 
     .sidebar_twitterIcon {
@@ -119,22 +144,16 @@
     .sidebar_wrapper .sidebar_option-wrapper:nth-child(9) {
         display: none !important;
     }
-}
 
-.logoutButton {
-    text-transform: inherit !important;
-    position: absolute !important;
-    bottom: 20px !important;
-    left: 50% !important;
-    translate: calc(-50% - 10px) !important;
-    border-radius: 20px !important;
-    color: var(--twitter-color) !important;
-    font-weight: 500 !important;
-    border: 1px solid var(--twitter-color) !important;
-    width: unset !important;
-    width: calc(100% - 20px) !important;
-}
+    .sidebar_tweet_mobile {
+        position: fixed;
+        right: 20px;
+        bottom: 72px;
+    }
 
-.logoutButton:hover {
-    background-color: var(--twitter-hover) !important;
+    .logoutBtn{
+        position: static;
+        display: flex;
+        border: none;
+    }
 }

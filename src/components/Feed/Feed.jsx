@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useContext } from 'react'
 import './Feed.css'
 import FlipMove from 'react-flip-move'
 import TweetBox from './TweetBox'
@@ -6,35 +6,24 @@ import Loader from '../Loader/Loader'
 import Post from './Post'
 import { db } from '../../firebase'
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { UserContext } from '../../context/UserContext'
 
-const Feed = ({ setTweetUsername, setCurrentUser }) => {
-  const [posts, setPosts] = useState(null);
-  const [user, setUser] = useState({});
+const Feed = () => {
+  const { user, state: { posts }, dispatch } = useContext(UserContext);
 
   const collectionRef = query(collection(db, "posts"), orderBy("createdAt", "desc"));
 
   useEffect(() => {
     onSnapshot(collectionRef, snapshot => {
-      setPosts(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-    })
-  }, []);
-
-  // useEffect(() => {
-  //   onSnapshot(query(collection(db, "users"), where("email", "===", sessionStorage.getItem('email'))), snapshot => {
-  //     setUser(snapshot.docs.map(doc => ({ ...doc.data() })));
-  //   })
-  // }, []);
-
-  useEffect(() => {
-    setUser({
-      username: sessionStorage.getItem('username'),
-      displayName: sessionStorage.getItem('displayName'),
-      photoURL: sessionStorage.getItem('photoURL')
+      dispatch({
+        type: 'POSTS',
+        payload: snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+      })
     })
 
-  }, []);
+    document.title = "Home / Twitter";
 
-  if (user) setCurrentUser(user)
+  }, []);
 
   return (
     <div className="feed">
@@ -65,8 +54,6 @@ const Feed = ({ setTweetUsername, setCurrentUser }) => {
               liked={post.liked}
               verified={post.verified}
               id={post.id}
-              currentUser={user}
-              setTweetUsername={setTweetUsername}
             />
           )) : <><Loader /></>
         }
@@ -76,4 +63,4 @@ const Feed = ({ setTweetUsername, setCurrentUser }) => {
   )
 }
 
-export default Feed
+export default Feed;

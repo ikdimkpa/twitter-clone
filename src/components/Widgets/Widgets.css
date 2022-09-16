@@ -66,6 +66,7 @@
     -ms-overflow-style: none;
     /* Firefox */
     scrollbar-width: none;
+    padding-bottom: 200px;
 }
 
 /* Chrome */
@@ -127,7 +128,7 @@
     }
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 1004px) {
     .widgets {
         display: none;
     }

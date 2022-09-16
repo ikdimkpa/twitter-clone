@@ -8,6 +8,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 import ListAltIcon from '@mui/icons-material/ListAlt'
 import PermIdentityIcon from '@mui/icons-material/PermIdentity'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import { Logout, Edit } from '@mui/icons-material/'
 
 import { Button } from '@mui/material'
 import SidebarOption from './SidebarOption'
@@ -25,7 +26,7 @@ const Sidebar = () => {
     if (window.confirm("Are you sure?\nYou want Log Out")) {
       signOut(auth);
       navigate("/login");
-      sessionStorage.clear();
+      localStorage.clear();
     }
   }
 
@@ -36,7 +37,7 @@ const Sidebar = () => {
           <TwitterIcon />
         </div>
 
-        <SidebarOption path="/" Icon={HomeIcon} text="Home" />
+        <SidebarOption path="/home" Icon={HomeIcon} text="Home" />
         <SidebarOption path="/explore" Icon={SearchIcon} text="Explore" />
         <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
         <SidebarOption path="/messages" Icon={MessageIcon} text="Messages" />
@@ -44,14 +45,13 @@ const Sidebar = () => {
         <SidebarOption Icon={ListAltIcon} text="Lists" />
         <SidebarOption Icon={PermIdentityIcon} text="Profile" />
         <SidebarOption Icon={MoreHorizIcon} text="More" />
+        <SidebarOption Icon={Edit} className="sidebar_tweet_mobile" onClick={() => document.querySelector('.input').focus()} />
 
-        <Button className='sidebar_tweet' fullWidth>
+        <Button className='sidebar_tweet' fullWidth onClick={() => document.querySelector('.input').focus()}>
           Tweet
         </Button>
 
-        <Button className="logoutButton" fullWidth onClick={handleLogOut}>
-          Logout @{sessionStorage.getItem("username")}
-        </Button>
+        <SidebarOption className="logoutBtn" Icon={Logout} onClick={handleLogOut} />
       </div>
     </div>
   )

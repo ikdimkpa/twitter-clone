@@ -5,6 +5,15 @@
     background-color: var(--twitter-white);
     height: fit-content;
     min-height: 100vh;
+    /* IE and Edge */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
+}
+
+/* Chrome */
+.detail::-webkit-scrollbar {
+    display: none;
 }
 
 .detail_header {
@@ -155,4 +164,13 @@
 .post_footer>.favorit:hover {
     background-color: rgb(249 24 128 / 20%);
     color: rgb(249, 24, 128);
+}
+
+@media only screen and (max-width: 499px) {
+    .detail {
+        flex: 1;
+        height: 100vh;
+        overflow-y: scroll;
+        padding-bottom: 100px;
+    }
 }

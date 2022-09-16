@@ -1,13 +1,22 @@
-import React, { forwardRef } from 'react'
-import './Post.css'
-import TweetBox from './TweetBox';
-import { Avatar } from '@mui/material'
-import { ChatBubbleOutline, DeleteForever, FavoriteBorder, MoreHoriz, Publish, Repeat, VerifiedUser } from '@mui/icons-material';
-import { collection, deleteDoc, doc, query, orderBy, onSnapshot, where, addDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import React from 'react'
 import { Link } from 'react-router-dom';
+import { Avatar } from '@mui/material'
+import { ChatBubbleOutline, DeleteForever, FavoriteBorder, Publish, Repeat, VerifiedUser } from '@mui/icons-material';
+import { collection, deleteDoc, doc, query, onSnapshot, where, updateDoc } from 'firebase/firestore';
+import './Post.css'
+import { db } from '../../firebase';
+import TweetBox from './TweetBox';
+import { UserContext } from '../../context/UserContext';
 
-const Post = forwardRef(({
+const initialPostState = {
+  isDelete: false,
+  showReply: false,
+  post: null,
+  comments: null,
+  liked: false
+};
+
+const Post = React.forwardRef(({
   displayName,
   username,
   verified,
@@ -15,41 +24,45 @@ const Post = forwardRef(({
   image,
   avatar,
   likes,
-  id,
-  currentUser,
-  setTweetUsername }, ref) => {
-  const [isDelete, setIsDelete] = React.useState(false);
-  const [showReply, setShowReply] = React.useState(false);
-  const [comments, setComments] = React.useState(null);
-  const [liked, setLiked] = React.useState(false);
+  id }, ref) => {
 
-  const collectionRef = query(collection(db, "comments"), where("postId", "==", id));
+  const { user, reducer } = React.useContext(UserContext);
+
+  const [postState, postDispatch] = React.useReducer(reducer, initialPostState);
 
   React.useEffect(() => {
-    onSnapshot(collectionRef, snapshot => {
-      setComments(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-    })
+    onSnapshot(query(collection(db, "comments"), where("postId", "==", id)), snapshot => {
+      postDispatch({
+        type: 'SET_COMMENTS',
+        payload: snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+      })
+    });
+
+    if (username === user.username) {
+      postDispatch({
+        type: 'SET_IS_DELETE',
+        payload: true
+      })
+    }
+    else {
+      postDispatch({
+        type: 'SET_IS_DELETE',
+        payload: false
+      })
+    }
+
   }, []);
 
   const deletePost = (postId) => {
     if (window.confirm("Are you sure?\nYou want to DELETE this post")) {
       deleteDoc(doc(db, "posts", postId))
-      if (comments) {
-        comments.map(comment => {
-          deleteDoc(doc(db, "comments", comment.id))
+      if (postState.comments) {
+        postState.comments.map(comment => {
+          return deleteDoc(doc(db, "comments", comment.id));
         });
       }
     }
   }
-
-  React.useEffect(() => {
-    if (username === currentUser.username) {
-      setIsDelete(true);
-    }
-    else {
-      setIsDelete(false);
-    }
-  }, []);
 
   const handleRetweet = () => {
     if (window.confirm("Retweet this tweet?")) {
@@ -58,15 +71,18 @@ const Post = forwardRef(({
   }
 
   const handleLikes = (postId) => {
-    setLiked(!liked);
+    postDispatch({
+      type: 'LIKED',
+      payload: !postState.liked
+    });
 
-    if (!liked) {
+    if (!postState.liked) {
       updateDoc(doc(db, "posts", postId), {
         likes: likes + 1
       });
 
       updateDoc(doc(db, "posts", postId), {
-        liked
+        liked: postState.liked
       })
     }
     else {
@@ -75,7 +91,7 @@ const Post = forwardRef(({
       });
 
       updateDoc(doc(db, "posts", postId), {
-        liked
+        liked: postState.liked
       })
     }
   }
@@ -98,13 +114,13 @@ const Post = forwardRef(({
             </h3>
 
             {
-              isDelete && <DeleteForever onClick={() => deletePost(id)} title="Delete Forever" className="post_more-options" />
+              postState.isDelete && <DeleteForever onClick={() => deletePost(id)} title="Delete Forever" className="post_more-options" />
             }
 
           </div>
         </div>
 
-        <Link to={`${username}/${id}`} className="post_detail_link" onClick={() => setTweetUsername(username)}>
+        <Link to={`/tweets/${id}`} className="post_detail_link">
           <div className="post_header-description">
             <p>{text}</p>
           </div>
@@ -112,24 +128,27 @@ const Post = forwardRef(({
         </Link>
 
         {
-          showReply && <TweetBox
-            user={currentUser}
+          postState.showReply && <TweetBox
+            user={user}
             postId={id}
             text="Reply"
             placeholder="Tweet your reply" />
         }
 
         <div className="post_footer">
-          <div className='post_footer_icon_wrapper' onClick={() => setShowReply(!showReply)}>
+          <div className='post_footer_icon_wrapper' onClick={() => postDispatch({
+            type: 'SHOW_REPLY',
+            payload: !postState.showReply
+          })}>
             <ChatBubbleOutline className={`ChatBubble`} title="Reply" fontSize='small' />
             {
-              comments && comments.length > 0 && <span>{comments.length}</span>
+              postState.comments && postState.comments.length > 0 && <span>{postState.comments.length}</span>
             }
           </div>
           <Repeat className='repeat' title="Retweet" onClick={handleRetweet} fontSize="small" />
 
           <div className="post_footer_icon_wrapper">
-            <FavoriteBorder className={`favorit ${liked && "active_favorit"}`} title="Like" onClick={() => handleLikes(id)} fontSize="small" />
+            <FavoriteBorder className={`favorit ${postState.liked && "active_favorit"}`} title="Like" onClick={() => handleLikes(id)} fontSize="small" />
             {
               likes > 0 && <span>{likes}</span>
             }

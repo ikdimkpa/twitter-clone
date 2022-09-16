@@ -1,6 +1,6 @@
 import React from 'react'
 import { Avatar } from '@mui/material'
-import { PhotoOutlined, GifBoxOutlined, PollOutlined, EmojiEmotionsOutlined, CalendarTodayOutlined, LocationOnOutlined, WhatsApp } from '@mui/icons-material'
+import { PhotoOutlined, GifBoxOutlined, PollOutlined, EmojiEmotionsOutlined, CalendarTodayOutlined, LocationOnOutlined } from '@mui/icons-material'
 import { Button } from '@mui/material'
 import './TweetBox.css'
 
@@ -16,7 +16,7 @@ const TweetBox = ({
   const [tweetText, setTweetText] = React.useState('')
   const [tweetImage, setTweetImage] = React.useState('')
 
-  const { progress, url, setUrl } = useStorage(tweetImage)
+  const { url, setUrl } = useStorage(tweetImage)
 
   const handleTweetText = (e) => {
     if (e.target.value.length <= 280) {
@@ -101,14 +101,6 @@ const TweetBox = ({
             </div>
 
             <form className="tweet_box-wrapper" onSubmit={(e) => sendTweet(e, text)}>
-              {/* <input
-                type="text"
-                className="input"
-                value={tweetText}
-                onChange={(e) => (e.target.value.length <= 280) ? setTweetText(e.target.value) : null}
-                placeholder={placeholder}
-                required /> */}
-
               <textarea
                 className='input'
                 value={tweetText}
@@ -136,10 +128,10 @@ const TweetBox = ({
                     <input type="file" id="tweet-gif" onChange={uploadGif} />
                   </label>
 
-                  <PollOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
-                  <EmojiEmotionsOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
-                  <CalendarTodayOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
-                  <LocationOnOutlined style={{ pointerEvents: "none", opacity: ".45" }} />
+                  <PollOutlined className="tweet_disabled_icon" />
+                  <EmojiEmotionsOutlined className="tweet_disabled_icon" />
+                  <CalendarTodayOutlined className="tweet_disabled_icon" />
+                  <LocationOnOutlined className="tweet_disabled_icon" />
                 </div>
 
                 <div>

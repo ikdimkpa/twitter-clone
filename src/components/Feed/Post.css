@@ -110,3 +110,10 @@
     background-color: rgb(249 24 128 / 20%);
     color: rgb(249, 24, 128);
 }
+
+@media only screen and (max-width: 700px) {
+    .post_avatar {
+        padding-left: 10px !important;
+        padding-right: 5px !important;
+    }
+}

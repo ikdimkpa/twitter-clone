@@ -1,25 +1,38 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { collection, query, onSnapshot, where, deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { Link, useParams } from 'react-router-dom'
-import { ArrowBack, ChatBubbleOutline, DeleteForever, FavoriteBorder, MoreHoriz, Publish, Repeat, VerifiedUser } from '@mui/icons-material';
+import { ArrowBack, ChatBubbleOutline, DeleteForever, FavoriteBorder, Publish, Repeat, VerifiedUser } from '@mui/icons-material';
+import { Avatar } from '@mui/material';
 import './Detail.css'
 import TweetBox from './TweetBox';
 import Comments from './Comments';
-import { Avatar } from '@mui/material';
 import Loader from '../Loader/Loader';
+import { UserContext } from '../../context/UserContext';
 
-const Detail = ({ tweetUsername, user }) => {
+const Detail = () => {
+    const { user, state: { isDelete, post, comments }, dispatch } = useContext(UserContext);
+
     const { id } = useParams();
-    const [post, setPost] = React.useState(null);
-    const [comments, setComments] = React.useState(null);
-    const [isDelete, setIsDelete] = React.useState(false);
+
+    const collectionRef = query(collection(db, "comments"), where("postId", "==", id));
 
     React.useEffect(() => {
         const fetchPost = async () => {
             const docSnap = await getDoc(doc(db, "posts", id));
-            setPost(docSnap.data())
+            dispatch({
+                type: 'SET_POST',
+                payload: docSnap.data()
+            })
+
         }
+
+        onSnapshot(collectionRef, snapshot => {
+            dispatch({
+                type: 'SET_COMMENTS',
+                payload: snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+            })
+        })
 
         fetchPost();
     }, []);
@@ -30,17 +43,9 @@ const Detail = ({ tweetUsername, user }) => {
         }
     }
 
-    const collectionRef = query(collection(db, "comments"), where("postId", "==", id));
-
-    React.useEffect(() => {
-        onSnapshot(collectionRef, snapshot => {
-            setComments(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-        })
-    }, []);
-
     return (
         <div className="detail">
-            <Link to="/" className="detail_header">
+            <Link to={-1} className="detail_header">
                 <ArrowBack />
                 <h2>Tweet</h2>
             </Link>
@@ -86,7 +91,7 @@ const Detail = ({ tweetUsername, user }) => {
                             <Publish className='publish' title="Share" fontSize="small" />
                         </div>
                     </div>
-                </div> : <Loader />
+                </div> : <Loader top />
             }
 
             {
@@ -98,7 +103,7 @@ const Detail = ({ tweetUsername, user }) => {
             }
 
             {
-                post && comments ? comments.map(({ text, avatar, displayName, username, verified, id }) => (
+                post && comments && comments.map(({ text, avatar, displayName, username, verified, id }) => (
                     <Comments
                         key={id}
                         avatar={avatar}
@@ -109,7 +114,7 @@ const Detail = ({ tweetUsername, user }) => {
                         id={id}
                         currentUser={user}
                     />
-                )) : <Loader />
+                ))
             }
 
         </div >

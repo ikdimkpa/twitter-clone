@@ -1,9 +1,9 @@
 import React from 'react'
 import './Loader.css'
 
-const Loader = () => {
+const Loader = ({top}) => {
     return (
-        <div className='loading_wrapper'>
+        <div className={`loading_wrapper ${top && 'loading_wrapper_top'}`}>
             <div className="loading"></div>
         </div>
     )

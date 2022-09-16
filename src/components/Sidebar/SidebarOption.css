@@ -38,13 +38,19 @@
     font-weight: 800;
 }
 
-@media only screen and (max-width: 1080px) {
-    .sidebar_option-wrapper {
+@media only screen and (max-width: 1264px) {
+    .sidebar_option {
         border-radius: 50%;
     }
 
     .sidebar_option>h2 {
         display: none;
+    }
+}
+
+@media only screen and (max-width: 1080px) {
+    .sidebar_option-wrapper {
+        border-radius: 50%;
     }
 }
 

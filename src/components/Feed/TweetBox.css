@@ -116,3 +116,14 @@
     height: 36px;
     width: 90px;
 }
+
+.tweet_disabled_icon {
+    pointer-events: none !important;
+    opacity: .45 !important;
+}
+
+@media only screen and (max-width: 499px){
+    .tweet_disabled_icon:not(:last-child){
+        display: none !important;
+    }
+}

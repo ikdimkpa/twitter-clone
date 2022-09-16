@@ -1,7 +1,5 @@
 import React from 'react'
 import './Comments.css'
-// import TweetBox from './TweetBox';
-// import FlipMove from 'react-flip-move';
 import { Avatar } from '@mui/material'
 import { ChatBubbleOutline, DeleteForever, FavoriteBorder, MoreHoriz, Publish, Repeat, VerifiedUser } from '@mui/icons-material';
 import { collection, deleteDoc, doc } from 'firebase/firestore';

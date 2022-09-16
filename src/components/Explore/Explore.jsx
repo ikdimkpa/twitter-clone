@@ -15,16 +15,17 @@ const Explore = () => {
         onSnapshot(collection(db, "posts"), snapshot => {
             setPosts(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
         })
-    }, []);
 
-    useEffect(() => {
         setUser({
-            username: sessionStorage.getItem('username'),
-            displayName: sessionStorage.getItem('displayName'),
-            photoURL: sessionStorage.getItem('photoURL')
+            username: localStorage.getItem('username'),
+            displayName: localStorage.getItem('displayName'),
+            photoURL: localStorage.getItem('photoURL')
         })
-    }, []);
 
+        document.title = "Explore / Twitter";
+
+    }, []);
+    
     return (
         <div className="explore">
             <div className="explore_header">
