@@ -128,10 +128,8 @@
 }
 
 .message_large .chat_box {
-    position: fixed !important;
-    z-index: 100;
+    z-index: 999;
     width: 100%;
-    max-width: 638px !important;
 }
 
 .message_large figure {
@@ -185,13 +183,5 @@
     .message_large {
         flex: 1 !important;
         width: 100vw !important;
-    }
-}
-
-@media only screen and (max-width: 499px) {
-    .message_large {
-        /* height: 100vh;
-        overflow-y: scroll;
-        padding-bottom: 100px; */
     }
 }
