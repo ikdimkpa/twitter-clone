@@ -1,18 +1,20 @@
 import React from 'react'
-import { Avatar } from '@mui/material'
 import { PhotoOutlined, GifBoxOutlined, PollOutlined, EmojiEmotionsOutlined, CalendarTodayOutlined, LocationOnOutlined } from '@mui/icons-material'
 import { Button } from '@mui/material'
 import './TweetBox.css'
 
 import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import useStorage from '../../hooks/useStorage'
-import { db } from '../../firebase'
+import { db } from '../../config/firebase'
+import ProfileAvatar from '../Profile/ProfileAvatar'
+import { UserContext } from '../../context/UserContext'
 
 const TweetBox = ({
-  user,
   text,
   postId,
   placeholder }) => {
+  const { user } = React.useContext(UserContext);
+
   const [tweetText, setTweetText] = React.useState('')
   const [tweetImage, setTweetImage] = React.useState('')
 
@@ -96,9 +98,7 @@ const TweetBox = ({
       <div className="tweet_box">
         {
           text == "Tweet" && <>
-            <div className="post_avatar">
-              <Avatar src={user && user.photoURL} alt={user && user.displayName} />
-            </div>
+            <ProfileAvatar />
 
             <form className="tweet_box-wrapper" onSubmit={(e) => sendTweet(e, text)}>
               <textarea
@@ -116,7 +116,7 @@ const TweetBox = ({
               }
 
               <div className="tweet_box-footer">
-                
+
                 <div className="tweet_box-icons">
                   <label htmlFor="tweet-image" title='Media'>
                     <PhotoOutlined />
@@ -160,9 +160,7 @@ const TweetBox = ({
 
         {
           text == "Reply" && <>
-            <div className="post_avatar">
-              <Avatar src={user && user.photoURL} alt={user && user.displayName} />
-            </div>
+            <ProfileAvatar />
 
             <form className="tweet_box-wrapper comment_input" onSubmit={(e) => sendTweet(e, text)}>
               <input

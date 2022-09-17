@@ -3,6 +3,7 @@
     height: fit-content;
     display: flex;
     width: calc(100vw - 78%);
+    min-height: 100vh;
 }
 
 .widgets_container {
@@ -120,6 +121,18 @@
 .widgets_footer a:hover {
     cursor: pointer;
     text-decoration: underline;
+}
+
+@media only screen and (min-width: 1920px) {
+    .widgets_container {
+        width: calc(100vw - 86%);
+    }
+
+    .widgets_header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
 }
 
 @media only screen and (max-width: 1400px) {

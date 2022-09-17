@@ -1,0 +1,22 @@
+.feed {
+    height: fit-content;
+    /* overflow-y: scroll; */
+    /* IE and Edge */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
+}
+
+/* Chrome */
+.feed::-webkit-scrollbar {
+    display: none;
+}
+
+.more_tweets {
+    text-align: center;
+    padding: 1rem;
+    color: var(--twitter-color);
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+}

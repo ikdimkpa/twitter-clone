@@ -1,0 +1,35 @@
+.profile_avatar {
+    padding: 15px;
+}
+
+.profile_avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.profile_avatar_border .MuiAvatar-root {
+    padding: 3px !important;
+    background-color: var(--twitter-white) !important;
+    width: fit-content !important;
+    height: fit-content !important;
+}
+
+.profile_avatar_lg img {
+    width: 133px;
+    height: 133px;
+}
+
+@media only screen and (max-width: 700px) {
+    .profile_avatar {
+        padding-left: 10px !important;
+        padding-right: 5px !important;
+    }
+}
+
+@media only screen and (max-width: 499px) {
+    .profile_avatar_lg img {
+        width: 100px;
+        height: 100px;
+    }
+}

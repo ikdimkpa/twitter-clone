@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { Avatar } from '@mui/material'
 import { ChatBubbleOutline, DeleteForever, FavoriteBorder, Publish, Repeat, VerifiedUser } from '@mui/icons-material';
 import { collection, deleteDoc, doc, query, onSnapshot, where, updateDoc } from 'firebase/firestore';
-import './Post.css'
-import { db } from '../../firebase';
+import './Tweet.css'
+import { db } from '../../config/firebase';
 import TweetBox from './TweetBox';
 import { UserContext } from '../../context/UserContext';
+import ProfileAvatar from '../Profile/ProfileAvatar';
 
 const initialPostState = {
   isDelete: false,
@@ -16,7 +17,7 @@ const initialPostState = {
   liked: false
 };
 
-const Post = React.forwardRef(({
+const Tweet = React.forwardRef(({
   displayName,
   username,
   verified,
@@ -98,9 +99,7 @@ const Post = React.forwardRef(({
 
   return (
     <div className="post" ref={ref}>
-      <div className="post_avatar">
-        <Avatar src={avatar} />
-      </div>
+      <ProfileAvatar />
 
       <div className="post_body">
         <div className="post_header">
@@ -120,7 +119,7 @@ const Post = React.forwardRef(({
           </div>
         </div>
 
-        <Link to={`/tweets/${id}`} className="post_detail_link">
+        <Link to={`/${username}/${id}`} className="post_detail_link">
           <div className="post_header-description">
             <p>{text}</p>
           </div>
@@ -161,4 +160,4 @@ const Post = React.forwardRef(({
   );
 });
 
-export default Post
+export default Tweet

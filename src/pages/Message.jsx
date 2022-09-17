@@ -1,12 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { ArrowDownwardOutlined } from '@mui/icons-material'
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
-import { db } from '../../firebase'
-import './Message.css'
-import ChatBox from './ChatBox'
-import Chat from './Chat'
-import Loader from '../Loader/Loader'
+import { db } from '../config/firebase'
+import './Styles/Message.css'
+import ChatBox from '../components/Message/ChatBox'
+import Chat from '../components/Message/Chat'
+import Loader from '../components/Loader/Loader'
+import Header from '../components/Header/Header'
 
 const Message = ({ largeSize }) => {
 
@@ -24,13 +24,7 @@ const Message = ({ largeSize }) => {
     return (
         <div className={`message ${!chatOpen && "messageOff"} ${largeSize && "message_large"}`}>
             {
-                largeSize ? <Link to={-1} className="message_header">
-                    <h2>Messages</h2>
-                    <div className="message_header_icon">
-                        {/* <MailOutline /> */}
-                        <ArrowDownwardOutlined className="ArrowDownwardOutlined" onClick={() => setChatOpen(!chatOpen)} />
-                    </div>
-                </Link> : <div className="message_header">
+                largeSize ? <Header showBackIcon headerText="Messages" /> : <div className="message_header">
                     <h2>Messages</h2>
                     <div className="message_header_icon">
                         {/* <MailOutline /> */}

@@ -1,33 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Search } from '@mui/icons-material'
-import './Explore.css'
-import Trends from '../Widgets/Trends'
-import Post from '../Feed/Post'
-import { db } from '../../firebase'
-import { collection, onSnapshot } from 'firebase/firestore'
-import exploreImage from '../../assets/images/event.jfif'
+import './Styles/Explore.css'
+import Trends from '../components/Widgets/Trends'
+import Tweets from '../components/Profile/Tweets'
 
 const Explore = () => {
-    const [posts, setPosts] = useState(null);
-    const [user, setUser] = useState({});
-
-    useEffect(() => {
-        onSnapshot(collection(db, "posts"), snapshot => {
-            setPosts(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-        })
-
-        setUser({
-            username: localStorage.getItem('username'),
-            displayName: localStorage.getItem('displayName'),
-            photoURL: localStorage.getItem('photoURL')
-        })
-
+    React.useEffect(() => {
         document.title = "Explore / Twitter";
-
     }, []);
-    
+
     return (
-        <div className="explore">
+        <div className="wrapper explore">
             <div className="explore_header">
                 <div className="explore_input">
                     <Search className='explore_searchIcon' />
@@ -36,11 +19,9 @@ const Explore = () => {
             </div>
 
             <div className='explore_wrapper'>
-                {/* <div className="explore_trends"> */}
                 <figure>
-                    <img src={exploreImage} alt="" />
+                    <img src="/images/event.jfif" alt="" />
                 </figure>
-                {/* </div> */}
 
                 <div className="explore_trends">
                     <h2>Trends for you</h2>
@@ -63,23 +44,7 @@ const Explore = () => {
 
                 <div className='explore_trends'>
                     <h2>Random Tweets</h2>
-                    {
-                        posts ? posts.map(post => (
-                            <Post
-                                key={post.text}
-                                avatar={post.avatar}
-                                displayName={post.displayName}
-                                image={post.image}
-                                text={post.text}
-                                username={post.username}
-                                verified={post.verified}
-                                id={post.id}
-                                currentUser={user}
-                            />
-                        )) : <div className='loading_wrapper'>
-                            <div className="loading"></div>
-                        </div>
-                    }
+                    <Tweets />
                 </div>
             </div>
         </div>

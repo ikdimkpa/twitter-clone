@@ -1,12 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Google, Twitter } from '@mui/icons-material';
 import { Button } from '@mui/material';
+import { auth, db } from '../config/firebase'
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
-import { auth, db } from '../firebase'
-import './Login.css'
-import { useNavigate } from 'react-router-dom'
 import { addDoc, collection } from 'firebase/firestore';
-import { useEffect } from 'react';
+import './Styles/Login.css'
 
 const Login = () => {
     const navigate = useNavigate()
@@ -25,11 +24,12 @@ const Login = () => {
                 localStorage.setItem('displayName', user.displayName);
                 localStorage.setItem('photoURL', user.photoURL);
 
-                // addDoc(collection(db, "users"), {
-                //     displayName: user.displayName,
-                //     email: user.email,
-                //     photoURL: user.photoURL
-                // })
+                addDoc(collection(db, "users"), {
+                    displayName: user.displayName,
+                    username: user.email.split('@')[0],
+                    email: user.email,
+                    photoURL: user.photoURL
+                })
 
                 navigate(-1);
 

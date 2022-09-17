@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
-import { db, storage } from "../firebase";
+import { db, storage } from "../config/firebase";
 import { addDoc, collection } from "firebase/firestore";
 
 const useStorage = (file) => {

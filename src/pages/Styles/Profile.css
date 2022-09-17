@@ -1,0 +1,132 @@
+.profile_hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3/1;
+}
+
+.cover_photo {
+    background: var(--twitter-background) no-repeat center/cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.profile_image {
+    position: absolute !important;
+    bottom: calc(-50% + 20px) !important;
+    left: 0 !important;
+}
+
+.profile_info {
+    padding: 15px;
+}
+
+.profile_info span {
+    color: var(--twitter-gray);
+    font-size: 14px;
+}
+
+.profile_edit {
+    margin-left: calc(100% - 111px) !important;
+    border-radius: 20px !important;
+    text-transform: inherit !important;
+    font-weight: 700 !important;
+    color: var(--twitter-color) !important;
+    border-color: var(--twitter-color) !important;
+}
+
+.profile_user h2 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.profile_bio {
+    margin: 15px 0;
+}
+
+.profile_list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
+}
+
+.profile_list span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.profile_list span>.MuiSvgIcon-root {
+    font-size: 14px !important;
+}
+
+.profile_list a {
+    text-decoration: none;
+    color: var(--twitter-color);
+}
+
+.profile_list a:hover {
+    text-decoration: underline;
+}
+
+.profile_follow {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.profile_follow p:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.profile_nav {
+    border-bottom: 1px solid var(--twitter-background);
+}
+
+.profile_nav ul {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+}
+
+.profile_nav ul li {
+    display: flex;
+}
+
+.profile_nav ul li a {
+    text-decoration: none;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: var(--twitter-gray);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.profile_nav li a:hover {
+    background-color: var(--twitter-background);
+}
+
+.profile_nav_active span {
+    color: var(--twitter-black);
+    font-weight: 700;
+    position: relative;
+}
+
+.profile_nav_active span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1rem;
+    height: 4px;
+    border-radius: 4px;
+    background-color: var(--twitter-color);
+}

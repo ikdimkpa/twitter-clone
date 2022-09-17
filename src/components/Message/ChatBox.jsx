@@ -3,7 +3,7 @@ import React from 'react'
 import './ChatBox.css'
 import useStorage from '../../hooks/useStorage';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../../config/firebase';
 import { UserContext } from '../../context/UserContext'
 
 const ChatBox = () => {

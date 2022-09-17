@@ -3,7 +3,8 @@ import './Comments.css'
 import { Avatar } from '@mui/material'
 import { ChatBubbleOutline, DeleteForever, FavoriteBorder, MoreHoriz, Publish, Repeat, VerifiedUser } from '@mui/icons-material';
 import { collection, deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../../config/firebase';
+import ProfileAvatar from '../Profile/ProfileAvatar';
 
 const Comments = ({
     displayName,
@@ -32,9 +33,7 @@ const Comments = ({
 
     return (
         <div className="comment">
-            <div className="comment_avatar">
-                <Avatar src={avatar} />
-            </div>
+            <ProfileAvatar />
 
             <div className="comment_body">
                 <div className="comment_header">

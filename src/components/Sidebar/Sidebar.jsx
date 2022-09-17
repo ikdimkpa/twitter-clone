@@ -1,26 +1,20 @@
-import React from 'react'
-import TwitterIcon from '@mui/icons-material/Twitter'
-import HomeIcon from '@mui/icons-material/Home'
-import SearchIcon from '@mui/icons-material/Search'
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
-import MessageIcon from '@mui/icons-material/Message'
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
-import ListAltIcon from '@mui/icons-material/ListAlt'
-import PermIdentityIcon from '@mui/icons-material/PermIdentity'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import { Logout, Edit } from '@mui/icons-material/'
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Twitter, Home, Search, NotificationsNone, Message, BookmarkBorder, ListAlt, PermIdentity, MoreHoriz, Logout, Edit } from '@mui/icons-material/';
 
 import { Button } from '@mui/material'
 import SidebarOption from './SidebarOption'
 import './Sidebar.css'
 
 import { signOut } from 'firebase/auth'
-import { auth } from '../../firebase'
+import { auth } from '../../config/firebase'
 
-import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../../context/UserContext'
 
 const Sidebar = () => {
   const navigate = useNavigate()
+
+  const { user } = React.useContext(UserContext);
 
   const handleLogOut = () => {
     if (window.confirm("Are you sure?\nYou want Log Out")) {
@@ -33,25 +27,25 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="sidebar_wrapper">
-        <div className="sidebar_twitterIcon">
-          <TwitterIcon />
-        </div>
+        <Link to="/home" className="sidebar_twitterIcon">
+          <Twitter />
+        </Link>
 
-        <SidebarOption path="/home" Icon={HomeIcon} text="Home" />
-        <SidebarOption path="/explore" Icon={SearchIcon} text="Explore" />
-        <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
-        <SidebarOption path="/messages" Icon={MessageIcon} text="Messages" />
-        <SidebarOption Icon={BookmarkBorderIcon} text="Bookmarks" />
-        <SidebarOption Icon={ListAltIcon} text="Lists" />
-        <SidebarOption Icon={PermIdentityIcon} text="Profile" />
-        <SidebarOption Icon={MoreHorizIcon} text="More" />
+        <SidebarOption path="/home" Icon={Home} text="Home" />
+        <SidebarOption path="/explore" Icon={Search} text="Explore" />
+        <SidebarOption Icon={NotificationsNone} text="Notifications" />
+        <SidebarOption path="/messages" Icon={Message} text="Messages" />
+        <SidebarOption Icon={BookmarkBorder} text="Bookmarks" />
+        <SidebarOption Icon={ListAlt} text="Lists" />
+        <SidebarOption path={`/${user.username}`} Icon={PermIdentity} text="Profile" />
+        <SidebarOption Icon={MoreHoriz} text="More" />
         <SidebarOption Icon={Edit} className="sidebar_tweet_mobile" onClick={() => document.querySelector('.input').focus()} />
 
         <Button className='sidebar_tweet' fullWidth onClick={() => document.querySelector('.input').focus()}>
           Tweet
         </Button>
 
-        <SidebarOption className="logoutBtn" Icon={Logout} onClick={handleLogOut} />
+        <SidebarOption className="logoutBtn" Icon={Logout} text="Log Out" onClick={handleLogOut} />
       </div>
     </div>
   )

@@ -3,10 +3,6 @@
     border: 1px solid var(--twitter-background);
 }
 
-.post_avatar {
-    /* padding: 15px; */
-}
-
 .tweet_box-wrapper {
     width: 100%;
     padding: 10px;

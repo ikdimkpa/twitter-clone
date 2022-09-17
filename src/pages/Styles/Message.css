@@ -113,16 +113,6 @@
     display: block !important;
 }
 
-.message_large .message_header {
-    justify-content: flex-end;
-    flex-direction: row-reverse;
-    gap: 1rem;
-}
-
-.message_large .ArrowDownwardOutlined {
-    transform: rotate(90deg) !important;
-}
-
 .message_large .chat_area {
     height: calc(100vh - 100px);
 }

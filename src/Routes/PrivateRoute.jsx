@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { Sidebar, Widgets, Message } from './';
+import { Sidebar, Widgets } from '../components';
+import Message from "../pages/Message";
 
 const PrivateRoute = () => {
     useEffect(() => {

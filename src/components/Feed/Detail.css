@@ -1,8 +1,4 @@
 .detail {
-    flex: .5;
-    border-left: 1px solid var(--twitter-background);
-    border-right: 1px solid var(--twitter-background);
-    background-color: var(--twitter-white);
     height: fit-content;
     min-height: 100vh;
     /* IE and Edge */
@@ -120,10 +116,6 @@
     color: gray;
 }
 
-.post_avatar {
-    padding: 15px;
-}
-
 .post_footer {
     display: flex;
     justify-content: space-between;
@@ -164,13 +156,4 @@
 .post_footer>.favorit:hover {
     background-color: rgb(249 24 128 / 20%);
     color: rgb(249, 24, 128);
-}
-
-@media only screen and (max-width: 499px) {
-    .detail {
-        flex: 1;
-        height: 100vh;
-        overflow-y: scroll;
-        padding-bottom: 100px;
-    }
 }

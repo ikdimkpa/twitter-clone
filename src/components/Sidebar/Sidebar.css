@@ -52,8 +52,6 @@
 .logoutBtn {
     position: absolute;
     bottom: 20px;
-    display: none;
-    border: 1px solid var(--twitter-color);
 }
 
 .sidebar_tweet_mobile {
@@ -77,9 +75,18 @@
         display: none !important;
     }
 
-    .logoutBtn,
+    .logoutBtn {
+        border-radius: 50%;
+    }
+
     .sidebar_tweet_mobile {
         display: block;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .sidebar_wrapper {
+        width: unset;
     }
 }
 
@@ -151,7 +158,7 @@
         bottom: 72px;
     }
 
-    .logoutBtn{
+    .logoutBtn {
         position: static;
         display: flex;
         border: none;

@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { collection, query, onSnapshot, where, deleteDoc, doc, getDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../../config/firebase';
 import { ArrowBack, ChatBubbleOutline, DeleteForever, FavoriteBorder, Publish, Repeat, VerifiedUser } from '@mui/icons-material';
-import { Avatar } from '@mui/material';
 import './Detail.css'
 import TweetBox from './TweetBox';
 import Comments from './Comments';
 import Loader from '../Loader/Loader';
 import { UserContext } from '../../context/UserContext';
+import ProfileAvatar from '../Profile/ProfileAvatar';
 
 const Detail = () => {
     const { user, state: { isDelete, post, comments }, dispatch } = useContext(UserContext);
@@ -43,8 +43,12 @@ const Detail = () => {
         }
     }
 
+    if (post) {
+        document.title = `${post.displayName.split(" ")[0]} on Twitter: "${post.text.slice(0, 10)}"`;
+    }
+
     return (
-        <div className="detail">
+        <div className="wrapper detail">
             <Link to={-1} className="detail_header">
                 <ArrowBack />
                 <h2>Tweet</h2>
@@ -52,9 +56,7 @@ const Detail = () => {
 
             {
                 post ? <div className="post">
-                    <div className="post_avatar">
-                        <Avatar src={post.avatar} />
-                    </div>
+                    <ProfileAvatar />
 
                     <div className="post_body">
                         <div className="post_header">
