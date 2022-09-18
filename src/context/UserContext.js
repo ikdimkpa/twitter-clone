@@ -1,60 +1,58 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { addDoc, collection, getDocs, query, serverTimestamp, where } from "firebase/firestore";
 
-const user = {
-    username: localStorage.getItem('username'),
-    displayName: localStorage.getItem('displayName'),
-    photoURL: localStorage.getItem('photoURL')
-};
-
-const initialiState = {
-    isDelete: false,
-    showReply: false,
-    posts: null,
-    post: null,
-    comments: null,
-    liked: false
-}
-
-const reducer = (state, action) => {
-    switch (action.type) {
-        case 'SET_IS_DELETE':
-            return {
-                ...state, isDelete: action.payload
-            };
-
-        case 'SHOW_REPLY':
-            return {
-                ...state, showReply: action.payload
-            };
-        case 'POSTS':
-            return {
-                ...state, posts: action.payload
-            };
-        case 'SET_POST':
-            return {
-                ...state, post: action.payload
-            };
-        case 'SET_COMMENTS':
-            return {
-                ...state, comments: action.payload
-            };
-        case 'LIKED':
-            return {
-                ...state, liked: action.payload
-            }
-        default:
-            return state;
-    }
-};
+import { auth, db } from "../config/firebase";
+import { doesUsernameExist } from "../services/firebase";
+import TwitterLoading from "../components/Loader/TwitterLoading";
 
 export const UserContext = createContext(null);
 
 const UserProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, initialiState);
+    const [user, setUser] = useState(null);
 
-    return <UserContext.Provider value={{ user, state, dispatch, reducer }}>
-        {children}
-    </UserContext.Provider>
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            const stateChanged = async (user) => {
+                localStorage.setItem('authToken', user.accessToken);
+                localStorage.setItem('username', user.email.split('@')[0]);
+
+                let usernameExist = await doesUsernameExist(user.email.split('@')[0]);
+
+                if (!usernameExist) {
+                    try {
+                        addDoc(collection(db, "users"), {
+                            displayName: user.displayName,
+                            username: user.email.split('@')[0],
+                            email: user.email,
+                            avatar: user.photoURL,
+                            createdAt: serverTimestamp()
+                        })
+                    } catch (error) {
+                        console.log(error.message)
+                    }
+                }
+            }
+
+            return stateChanged(user);
+        });
+
+        getDocs(query(collection(db, "users"), where("username", "==", localStorage.getItem('username'))))
+            .then(result => {
+                result.docs.map(doc => (setUser({ ...doc.data(), uid: doc.id })))
+            });
+
+    }, []);
+
+    return (
+        <>
+            {
+                user ? <UserContext.Provider value={{ user, auth }}>
+                    {children}
+                </UserContext.Provider> : <TwitterLoading />
+            }
+        </>
+    );
 };
 
 export default UserProvider;

@@ -2,7 +2,7 @@ import React from 'react'
 import { Search } from '@mui/icons-material'
 import './Styles/Explore.css'
 import Trends from '../components/Widgets/Trends'
-import Tweets from '../components/Profile/Tweets'
+import Tweets from '../components/Feed/Tweets'
 
 const Explore = () => {
     React.useEffect(() => {

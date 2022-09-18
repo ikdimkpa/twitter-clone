@@ -1,0 +1,88 @@
+.profile_setting {}
+
+.profile_setting_wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 109;
+    background-color: rgba(255 255 255 / 50%);
+}
+
+.profile_setting_modal {
+    width: 50%;
+    max-width: 600px;
+    min-width: 280px;
+    height: 86vh;
+    background-color: var(--twitter-white);
+    border-radius: 20px;
+    overflow-y: scroll;
+    box-shadow: 2px 2px 16px rgba(0 0 0 / 20%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+}
+
+.profile_setting_modal::-webkit-scrollbar {
+    border-radius: 0 100px 100px 0;
+}
+
+.profile_setting_modal::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+}
+
+.profile_setting_modal form {
+    margin-top: 5rem;
+    padding: 1rem;
+}
+
+.profile_setting_modal .form_group {
+    border: 1px solid var(--twitter-background);
+    border-radius: 5px;
+    padding: .5rem;
+}
+
+.profile_setting_modal .form_group:focus-within {
+    border: 2px solid var(--twitter-color);
+}
+
+.profile_setting_modal .form_group:focus-within label {
+    color: var(--twitter-color);
+}
+
+.profile_setting_modal .form_group:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+.profile_setting_modal .form_group label {
+    display: block;
+    padding-bottom: 5px;
+    color: var(--twitter-gray);
+    font-weight: 300;
+    font-size: 14px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.form_group input,
+.form_group textarea {
+    width: 100%;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.form_group input:focus,
+.form_group textarea:focus {
+    outline: none;
+}
+
+.profile_setting_modal .form_group textarea {
+    resize: none;
+    height: 70px;
+}

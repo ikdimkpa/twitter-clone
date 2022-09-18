@@ -20,3 +20,14 @@
     font-weight: 400;
     cursor: pointer;
 }
+
+.header_profile_avatar {
+    display: none !important;
+}
+
+@media only screen and (max-width: 499px) {
+    .header_profile_avatar {
+        display: block !important;
+        padding: 0 !important;
+    }
+}

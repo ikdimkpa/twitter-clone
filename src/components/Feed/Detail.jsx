@@ -9,9 +9,11 @@ import Comments from './Comments';
 import Loader from '../Loader/Loader';
 import { UserContext } from '../../context/UserContext';
 import ProfileAvatar from '../Profile/ProfileAvatar';
+import { AppContext } from '../../context/AppContext';
 
 const Detail = () => {
-    const { user, state: { isDelete, post, comments }, dispatch } = useContext(UserContext);
+    const { user } = useContext(UserContext);
+    const { state: { isDelete, post, comments }, dispatch } = useContext(AppContext);
 
     const { id } = useParams();
 
@@ -56,7 +58,7 @@ const Detail = () => {
 
             {
                 post ? <div className="post">
-                    <ProfileAvatar />
+                    <ProfileAvatar src={post.avatar} alt={post.displayName} />
 
                     <div className="post_body">
                         <div className="post_header">

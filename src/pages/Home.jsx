@@ -2,7 +2,7 @@ import React from 'react'
 import './Styles/Home.css'
 import TweetBox from '../components/Feed/TweetBox'
 import Header from '../components/Header/Header'
-import Tweets from '../components/Profile/Tweets'
+import Tweets from '../components/Feed/Tweets'
 
 const Feed = () => {
   React.useEffect(() => {
@@ -11,7 +11,7 @@ const Feed = () => {
 
   return (
     <div className="wrapper feed">
-      <Header headerText="Home" />
+      <Header headerText="Home" profile />
 
       <TweetBox
         text="Tweet"

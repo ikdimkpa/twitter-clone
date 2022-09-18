@@ -1,20 +1,17 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth'
+import { Button } from '@mui/material'
 import { Twitter, Home, Search, NotificationsNone, Message, BookmarkBorder, ListAlt, PermIdentity, MoreHoriz, Logout, Edit } from '@mui/icons-material/';
 
-import { Button } from '@mui/material'
-import SidebarOption from './SidebarOption'
 import './Sidebar.css'
-
-import { signOut } from 'firebase/auth'
-import { auth } from '../../config/firebase'
-
+import SidebarOption from './SidebarOption'
 import { UserContext } from '../../context/UserContext'
 
 const Sidebar = () => {
   const navigate = useNavigate()
 
-  const { user } = React.useContext(UserContext);
+  const { user, auth } = React.useContext(UserContext);
 
   const handleLogOut = () => {
     if (window.confirm("Are you sure?\nYou want Log Out")) {

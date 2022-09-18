@@ -58,7 +58,8 @@
     background-color: var(--twitter-color);
     color: var(--twitter-white);
     display: none;
-    border-radius: 50%;
+    border-radius: 50% !important;
+    color: var(--twitter-white) !important;
 }
 
 @media only screen and (max-width: 1264px) {

@@ -28,13 +28,21 @@
     font-size: 14px;
 }
 
-.profile_edit {
+.profile_edit_link {
     margin-left: calc(100% - 111px) !important;
+    text-decoration: none;
+}
+
+.profile_edit {
     border-radius: 20px !important;
     text-transform: inherit !important;
     font-weight: 700 !important;
     color: var(--twitter-color) !important;
     border-color: var(--twitter-color) !important;
+}
+
+.profile_doc {
+    margin-top: 1.5rem;
 }
 
 .profile_user h2 {
@@ -129,4 +137,10 @@
     height: 4px;
     border-radius: 4px;
     background-color: var(--twitter-color);
+}
+
+@media only screen and (max-width: 499px) {
+    .profile_image {
+        bottom: -50% !important;
+    }
 }

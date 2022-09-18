@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { Avatar } from '@mui/material'
 import { ChatBubbleOutline, DeleteForever, FavoriteBorder, Publish, Repeat, VerifiedUser } from '@mui/icons-material';
-import { collection, deleteDoc, doc, query, onSnapshot, where, updateDoc } from 'firebase/firestore';
 import './Tweet.css'
+import { collection, deleteDoc, doc, query, onSnapshot, where, updateDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import TweetBox from './TweetBox';
-import { UserContext } from '../../context/UserContext';
 import ProfileAvatar from '../Profile/ProfileAvatar';
+import { UserContext } from '../../context/UserContext';
+import { AppContext } from '../../context/AppContext';
 
 const initialPostState = {
   isDelete: false,
@@ -27,7 +27,8 @@ const Tweet = React.forwardRef(({
   likes,
   id }, ref) => {
 
-  const { user, reducer } = React.useContext(UserContext);
+  const { user } = React.useContext(UserContext);
+  const { reducer } = React.useContext(AppContext);
 
   const [postState, postDispatch] = React.useReducer(reducer, initialPostState);
 
@@ -99,7 +100,7 @@ const Tweet = React.forwardRef(({
 
   return (
     <div className="post" ref={ref}>
-      <ProfileAvatar />
+      <ProfileAvatar src={avatar} alt={displayName} />
 
       <div className="post_body">
         <div className="post_header">

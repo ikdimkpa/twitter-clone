@@ -98,7 +98,7 @@ const TweetBox = ({
       <div className="tweet_box">
         {
           text == "Tweet" && <>
-            <ProfileAvatar />
+            <ProfileAvatar src={user.avatar} alt={user.displayName} />
 
             <form className="tweet_box-wrapper" onSubmit={(e) => sendTweet(e, text)}>
               <textarea
@@ -160,7 +160,7 @@ const TweetBox = ({
 
         {
           text == "Reply" && <>
-            <ProfileAvatar />
+            <ProfileAvatar src={user.avatar} alt={user.displayName} />
 
             <form className="tweet_box-wrapper comment_input" onSubmit={(e) => sendTweet(e, text)}>
               <input

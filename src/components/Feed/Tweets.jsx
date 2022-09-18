@@ -2,13 +2,13 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import FlipMove from 'react-flip-move';
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
-import { UserContext } from '../../context/UserContext';
 import { db } from '../../config/firebase';
-import Tweet from '../Feed/Tweet';
+import Tweet from './Tweet';
 import Loader from '../Loader/Loader';
+import { AppContext } from '../../context/AppContext';
 
 const Tweets = ({ condition }) => {
-    const { state: { posts }, dispatch } = React.useContext(UserContext);
+    const { state: { posts }, dispatch } = React.useContext(AppContext);
 
     const { username } = useParams();
 

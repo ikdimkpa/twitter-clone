@@ -12,9 +12,9 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    cursor: pointer;
     text-decoration: none;
     color: inherit;
+    overflow: hidden;
 }
 
 .wrapper_header>h2 {
@@ -22,6 +22,7 @@
     font-weight: 700;
     line-height: 24px;
     padding-bottom: 2px;
+    margin-left: 1rem;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -39,10 +40,20 @@
     padding: 5px;
     width: 32px;
     height: 32px;
+    color: var(--twitter-black);
     transform: rotate(90deg);
     transition: all 200ms ease-out;
 }
 
 .wrapper_header .MuiSvgIcon-root:hover {
     background-color: var(--twitter-background);
+}
+
+.header_btn{
+    margin-left: calc(100% - 240px) !important;
+    border-radius: 30px !important;
+    text-transform: inherit !important;
+    color: var(--twitter-white) !important;
+    background-color: var(--twitter-black) !important;
+    font-weight: 500!important;
 }
