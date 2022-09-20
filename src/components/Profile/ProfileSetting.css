@@ -36,9 +36,44 @@
     border-radius: 100px;
 }
 
+.edit_cover {
+    position: relative;
+}
+
+.edit_cover .avatar_overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0 0 0 / 20%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit_cover .MuiSvgIcon-root {
+    color: var(--twitter-white);
+    font-size: 2.7rem;
+    padding: 10px;
+    background-color: rgba(0 0 0 / 40%);
+    box-shadow: 2px 2px 16px rgba(255 255 255 / 20%);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.edit_cover .MuiSvgIcon-root:hover {
+    background-color: rgba(0 0 0 / 30%);
+}
+
 .profile_setting_modal form {
     margin-top: 5rem;
     padding: 1rem;
+}
+
+.profile_setting_modal .form_group.file_wrapper {
+    display: none;
 }
 
 .profile_setting_modal .form_group {
@@ -85,4 +120,44 @@
 .profile_setting_modal .form_group textarea {
     resize: none;
     height: 70px;
+}
+
+.edit_media{
+    overflow: hidden;
+}
+
+.edit_media_wrapper {
+    width: 100%;
+    height: 92%;
+    padding: 0 1rem;
+}
+
+.edit_media_figure{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.edit_media_figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.edit_media_figure .crop_wrapper {
+    border: 4px solid var(--twitter-color);
+    aspect-ratio: 3 / 1;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+}
+
+.avatar_editor{
+    width: 100% !important;
+    height: 100% !important;
 }

@@ -18,7 +18,7 @@ const TweetBox = ({
   const [tweetText, setTweetText] = React.useState('')
   const [tweetImage, setTweetImage] = React.useState('')
 
-  const { url, setUrl } = useStorage(tweetImage)
+  const { url, setUrl } = useStorage("post_images", tweetImage)
 
   const handleTweetText = (e) => {
     if (e.target.value.length <= 280) {
@@ -42,7 +42,7 @@ const TweetBox = ({
         verified: true,
         text: tweetText,
         image: url,
-        avatar: user.photoURL,
+        avatar: user.avatar,
         createdAt: Timestamp.now()
       });
     }
@@ -56,7 +56,7 @@ const TweetBox = ({
         username: user.username,
         verified: true,
         text: tweetText,
-        avatar: user.photoURL,
+        avatar: user.avatar,
         createdAt: Timestamp.now()
       });
     }

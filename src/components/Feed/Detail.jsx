@@ -81,7 +81,7 @@ const Detail = () => {
                         <div className="post_header-description">
                             <p>{post.text}</p>
                         </div>
-                        {!post.image.includes("undefined") && <img src={post.image} alt="" />}
+                        <img src={post.image} alt="" />
 
                         <div className="post_footer">
                             <div className='post_footer_icon_wrapper'>

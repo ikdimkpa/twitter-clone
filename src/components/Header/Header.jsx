@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowDownwardOutlined } from '@mui/icons-material';
+import { ArrowDownwardOutlined, Close } from '@mui/icons-material';
 import './Header.css';
 import ProfileAvatar from '../Profile/ProfileAvatar';
 import { UserContext } from '../../context/UserContext';
 import { Button } from '@mui/material';
 
-const Header = ({ showBackIcon, headerText, profile, showButton, onClick }) => {
+const Header = ({ showBackIcon, headerText, profile, buttonText, onClick }) => {
     const { user } = React.useContext(UserContext);
 
     return (
@@ -17,13 +17,15 @@ const Header = ({ showBackIcon, headerText, profile, showButton, onClick }) => {
 
             {
                 showBackIcon && <Link to={- 1} className="wrapper_header_back" >
-                    <ArrowDownwardOutlined />
+                    {
+                        buttonText === "Save" ? <Close /> : <ArrowDownwardOutlined />
+                    }
                 </Link>
             }
             <h2>{headerText}</h2>
 
             {
-                showButton && <Button variant='outlined' className="header_btn" onClick={onClick}>Save</Button>
+                buttonText && <Button variant='outlined' className="header_btn" onClick={onClick}>{buttonText}</Button>
             }
         </div>
     )

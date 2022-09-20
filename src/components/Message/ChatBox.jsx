@@ -12,7 +12,7 @@ const ChatBox = () => {
     const [chatText, setChatText] = React.useState("");
     const [chatImage, setChatImage] = React.useState('');
 
-    const { url, setUrl } = useStorage(chatImage);
+    const { url, setUrl } = useStorage("post_images", chatImage);
 
     const uploadChatImage = (e) => {
         let selected = e.target.files[0];

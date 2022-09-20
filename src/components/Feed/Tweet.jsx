@@ -78,7 +78,7 @@ const Tweet = React.forwardRef(({
       payload: !postState.liked
     });
 
-    if (!postState.liked) {
+    if (postState.liked) {
       updateDoc(doc(db, "posts", postId), {
         likes: likes + 1
       });
@@ -124,7 +124,7 @@ const Tweet = React.forwardRef(({
           <div className="post_header-description">
             <p>{text}</p>
           </div>
-          {!image.includes("undefined") && <img src={image} alt="" />}
+          <img src={image} alt="" />
         </Link>
 
         {

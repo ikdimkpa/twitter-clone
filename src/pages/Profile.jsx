@@ -4,7 +4,7 @@ import { Badge, CalendarMonth, LinkOutlined, LocationOnOutlined } from '@mui/ico
 import { Button } from '@mui/material';
 import Header from '../components/Header/Header';
 import ProfileAvatar from '../components/Profile/ProfileAvatar';
-import { UserContext } from '../context/UserContext';
+// import { UserContext } from '../context/UserContext';
 import './Styles/Profile.css';
 import { doesUsernameExist, getDocsByUsername } from '../services/firebase';
 import Loader from '../components/Loader/Loader';
@@ -13,7 +13,7 @@ const Profile = () => {
     const { username } = useParams();
     const navigate = useNavigate();
 
-    const { user } = React.useContext(UserContext);
+    // const { user } = React.useContext(UserContext);
 
     const [userDocs, setUserDocs] = React.useState(null);
 
@@ -36,15 +36,15 @@ const Profile = () => {
         }
     ];
 
+    const months = ["January", "February", "March", "April", "May", "Jun", "July", "August", "September", "October", "November", "December"];
+
     React.useEffect(() => {
         const getUserDocs = async (username) => {
             let usernameExist = await doesUsernameExist(username);
 
             if (usernameExist) {
-                await getDocsByUsername(username)
-                    .then(result => {
-                        setUserDocs(result);
-                    })
+                let result = await getDocsByUsername(username);
+                setUserDocs(result);
             }
             else {
                 if (window.alert(`${username} does not exist\nGo back to home page`)) {
@@ -55,7 +55,11 @@ const Profile = () => {
 
         getUserDocs(username);
 
-        // document.title = `${doc.displayName.split(" ")[0]} (@${docname}) / Twitter`;
+        if (userDocs) {
+            document.title = `${userDocs.displayName.split(" ")[0]} (@${userDocs.username}) / Twitter`;
+            console.log(userDocs.displayName)
+        }
+
     }, []);
 
     return (
@@ -81,19 +85,22 @@ const Profile = () => {
                                 <span>@{userDocs.username}</span>
                             </div>
 
-                            <p className="profile_bio">Do you love coding? Learn computing with #TechSheet. We'll tweet in the tech field to help educate, inform our diverse audience in the journey of programming.
-                            </p>
+                            <p className="profile_bio">{userDocs.bio}</p>
 
                             <div className='profile_list'>
-                                <span><Badge /> Information Technology Company</span>
-                                <span><LocationOnOutlined /> United States</span>
-                                <span><LinkOutlined /> <a href="https://tech-sheet.blogspot.com" target="_blank">tech-sheet.blogspot.com</a></span>
-                                <span><CalendarMonth /> Joined September 2021</span>
+                                <span><Badge /> {userDocs.category}</span>
+                                <span><LocationOnOutlined /> {userDocs.location}</span>
+                                <span><LinkOutlined /> <a href={`${userDocs.website}`} target="_blank">{userDocs.website}</a></span>
+                                <span><CalendarMonth /> Joined {`${months[new Date(userDocs.createdAt.toDate()).getMonth()]} ${new Date(userDocs.createdAt.toDate()).getFullYear()}`}</span>
                             </div>
 
                             <div className="profile_follow">
-                                <p>269 <span>Following</span></p>
-                                <p>69 <span>Followers</span></p>
+                                {
+                                    userDocs.following.length >= 0 && <p>{userDocs.following.length} <span>Following</span></p>
+                                }
+                                {
+                                    userDocs.followers.length >= 0 && <p>{userDocs.followers.length} <span>Followers</span></p>
+                                }
                             </div>
                         </div>
 
