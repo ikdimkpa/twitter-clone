@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PhotoOutlined, GifBoxOutlined, PollOutlined, EmojiEmotionsOutlined, CalendarTodayOutlined, LocationOnOutlined } from '@mui/icons-material'
 import { Button } from '@mui/material'
 import './TweetBox.css'
@@ -11,9 +12,11 @@ import { UserContext } from '../../context/UserContext'
 
 const TweetBox = ({
   text,
+  compose,
   postId,
   placeholder }) => {
   const { user } = React.useContext(UserContext);
+  const navigate = useNavigate();
 
   const [tweetText, setTweetText] = React.useState('')
   const [tweetImage, setTweetImage] = React.useState('')
@@ -65,6 +68,10 @@ const TweetBox = ({
     setUrl('');
     setTweetImage('');
 
+    if (compose) {
+      navigate(-1);
+    }
+
   }
 
   const uploadImage = (e) => {
@@ -92,6 +99,12 @@ const TweetBox = ({
       alert('Please select gif format');
     }
   }
+
+  React.useEffect(() => {
+    if (compose) {
+      document.querySelector('.input').focus();
+    }
+  }, []);
 
   return (
     <>

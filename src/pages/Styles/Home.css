@@ -1,4 +1,4 @@
-.feed {
+.home {
     height: fit-content;
     /* overflow-y: scroll; */
     /* IE and Edge */
@@ -8,7 +8,7 @@
 }
 
 /* Chrome */
-.feed::-webkit-scrollbar {
+.home::-webkit-scrollbar {
     display: none;
 }
 

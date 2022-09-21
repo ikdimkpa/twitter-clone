@@ -36,11 +36,16 @@ const Sidebar = () => {
         <SidebarOption Icon={ListAlt} text="Lists" />
         <SidebarOption path={`/${user.username}`} Icon={PermIdentity} text="Profile" />
         <SidebarOption Icon={MoreHoriz} text="More" />
-        <SidebarOption Icon={Edit} className="sidebar_tweet_mobile" onClick={() => document.querySelector('.input').focus()} />
 
-        <Button className='sidebar_tweet' fullWidth onClick={() => document.querySelector('.input').focus()}>
-          Tweet
-        </Button>
+        <Link to="compose" className='sidebar_tweet_link'>
+          <SidebarOption Icon={Edit} className="sidebar_tweet_mobile" />
+        </Link>
+
+        <Link to="compose" className='sidebar_tweet_link'>
+          <Button className='sidebar_tweet' fullWidth>
+            Tweet
+          </Button>
+        </Link>
 
         <SidebarOption className="logoutBtn" Icon={Logout} text="Log Out" onClick={handleLogOut} />
       </div>

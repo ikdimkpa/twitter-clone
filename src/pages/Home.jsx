@@ -10,7 +10,7 @@ const Feed = () => {
   }, []);
 
   return (
-    <div className="wrapper feed">
+    <div className="wrapper home">
       <Header headerText="Home" profile />
 
       <TweetBox

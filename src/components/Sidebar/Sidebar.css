@@ -49,6 +49,10 @@
     margin-top: 20px !important;
 }
 
+.sidebar_tweet_link {
+    text-decoration: none;
+}
+
 .logoutBtn {
     position: absolute;
     bottom: 20px;

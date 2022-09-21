@@ -118,8 +118,14 @@
     opacity: .45 !important;
 }
 
-@media only screen and (max-width: 499px){
-    .tweet_disabled_icon:not(:last-child){
+@media only screen and (max-width: 600px) {
+    .tweet_disabled_icon:not(:last-child) {
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width: 499px) {
+    .home .tweet_box {
         display: none !important;
     }
 }

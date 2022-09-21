@@ -19,7 +19,7 @@ const Profile = () => {
 
     const profile_lists = [
         {
-            pathname: "",
+            pathname: "tweets",
             text: "Tweets"
         },
         {

@@ -1,0 +1,36 @@
+.compose {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 109;
+    background-color: rgba(255 255 255 / 50%);
+}
+
+.compose_wrapper {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.compose_modal {
+    width: 90%;
+    max-width: 600px;
+    min-width: 280px;
+    height: auto;
+    background-color: var(--twitter-white);
+    border-radius: 20px;
+    box-shadow: 2px 2px 16px rgba(0 0 0 / 20%);
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+}
