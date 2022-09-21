@@ -24,11 +24,11 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="sidebar_wrapper">
-        <Link to="/home" className="sidebar_twitterIcon">
+        <Link to="/" className="sidebar_twitterIcon">
           <Twitter />
         </Link>
 
-        <SidebarOption path="/home" Icon={Home} text="Home" />
+        <SidebarOption path="/" Icon={Home} text="Home" />
         <SidebarOption path="/explore" Icon={Search} text="Explore" />
         <SidebarOption Icon={NotificationsNone} text="Notifications" />
         <SidebarOption path="/messages" Icon={Message} text="Messages" />

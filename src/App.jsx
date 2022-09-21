@@ -27,19 +27,19 @@ const App = () => {
                             <Route path='*' element={<NotFound />} />
 
                             <Route path='/' element={<PrivateRoute />}>
-                                <Route path='/' element={<Home />} />
+                                <Route index element={<Home />} />
                                 <Route path='home' element={<Home />} />
                                 <Route path='explore' element={<Explore />} />
                                 <Route path='messages' element={<Message largeSize />} />
                                 <Route path=":username" element={<Profile />}>
-                                    <Route path="/:username" element={<Tweets condition />} />
+                                    <Route index element={<Tweets condition />} />
                                     <Route path="tweets" element={<Tweets />} />
                                     <Route path="with_replies" element={<h1>Tweets &amp; Replies</h1>} />
                                     <Route path="media" element={<h1>Media</h1>} />
                                     <Route path="likes" element={<h1>Likes</h1>} />
                                     <Route path="settings" element={<ProfileSetting />} />
                                 </Route>
-                                <Route path={`:username/:id`} element={<Detail />} />
+                                <Route path=":username/:id" element={<Detail />} />
                             </Route>
                         </Routes>
                     </Suspense>

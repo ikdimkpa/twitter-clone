@@ -145,6 +145,7 @@ const ProfileSetting = () => {
 
             }
             else {
+                setUrl("");
                 setInputs((states) => ({
                     ...states,
                     uploadPhoto: ""
@@ -172,6 +173,7 @@ const ProfileSetting = () => {
 
             }
             else {
+                setUrl("");
                 setInputs((states) => ({
                     ...states,
                     uploadPhoto: ""

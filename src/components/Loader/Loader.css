@@ -18,10 +18,17 @@
     border-radius: 50%;
     border: 3px solid var(--twitter-hover);
     border-top-color: var(--twitter-color);
+    -webkit-animation: spinner 800ms ease-out infinite;
     animation: spinner 800ms ease-out infinite;
 }
 
 @keyframes spinner {
+    to {
+        rotate: 360deg;
+    }
+}
+
+@-webkit-keyframes spinner {
     to {
         rotate: 360deg;
     }
